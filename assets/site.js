@@ -73,6 +73,33 @@ function safeURL(u) {
 
 const ext = (href) => ({ href, target: "_blank", rel: "noopener noreferrer" });
 
+/* =========================================================== SECTIONS
+
+   The section eyebrows, headings and subheads used to be literals in index.html,
+   which quietly broke the rule at the top of this file — a string on the page and
+   not in content.json. They are ids now, and `content.sections` fills them, so
+   "edit content.json, commit, done" is true of every word again. `setText` is a
+   no-op when either the node or the string is missing, so index.html keeps its
+   own text as the fallback and a missing key is never a blank heading. */
+
+function setText(sel, value) {
+  const n = $(sel);
+  if (n && typeof value === "string" && value.trim()) n.textContent = value;
+}
+
+function renderSections(C) {
+  const S = C.sections || {};
+  setText("#skip-link", S.skip);
+  setText("#hero-foot-text", S.heroFoot);
+  setText("#what-eyebrow", S.what?.eyebrow);
+  setText("#features-eyebrow", S.features?.eyebrow);
+  setText("#gallery-eyebrow", S.gallery?.eyebrow);
+  setText("#gallery-heading", S.gallery?.heading);
+  setText("#gallery-sub", S.gallery?.sub);
+  setText("#feeds-eyebrow", S.feeds?.eyebrow);
+  setText("#feeds-heading", S.feeds?.heading);
+}
+
 /* =========================================================== HERO + COPY */
 
 function renderHero(C) {
@@ -382,6 +409,7 @@ function reveal() {
 
   document.title = C.site?.title || document.title;
 
+  renderSections(C);
   renderHero(C);
   renderFeatures(C);
   renderShots(C);

@@ -16,10 +16,24 @@ and feed limit is in that one file. Nothing else needs touching.
 
 ```jsonc
 "cta": { "steam": { "url": null, … } }   // set url → the button goes live
+"sections": { "features": { "eyebrow": … } }    // every section eyebrow, heading and subhead
 "shots": [ … ]                            // first entry spans full width
 "feedLimits": { "bluesky": 6, … }
 "social": { "youtube": { "enabled": false } }   // drops the panel and stops fetching it
 ```
+
+**"Every word" is meant literally, and once was not.** The section eyebrows and headings —
+`WHAT IT IS`, `HOW IT PLAYS`, `Nineteen bands, bottom to top` — were literals in `index.html`
+for the first two versions of this site, so "edit `content.json`, commit, done" quietly failed
+for six strings on the page. They are ids now, filled by `renderSections`, and `index.html`
+keeps its own text as the fallback: a missing key leaves the built-in wording rather than a
+blank heading.
+
+**Write it for a stranger.** The first version of the copy was assembled out of the game's
+design documents and inherited their vocabulary — *band*, *deterministic*, *traced hull*, *the
+glyph original*, *authored level* — and got as far as a live domain before anyone noticed that
+it never once said what you do with your hands. Numbers still carry the voice; the words around
+them have to be ones a reader already owns. Define a term the first time it appears, or drop it.
 
 **Two data files, one owner each — do not mix them up:**
 

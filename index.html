@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WHALE HOP — Lassen Seas</title>
-<meta name="description" content="A time-trial of flips, momentum and moonlight. Climb from the abyssal trench to the top of the sky.">
+<meta name="description" content="You are a whale with 150 seconds. Dive for speed, breach, flip, and land nose-first to keep the points. Climb from the trench floor to the top of the sky.">
 <meta name="theme-color" content="#050415">
 
 <!-- og:image MUST be absolute: link scrapers do not resolve a relative URL and do not run
@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="WHALE HOP">
 <meta property="og:url" content="https://whalehop.net/">
 <meta property="og:title" content="WHALE HOP — Lassen Seas">
-<meta property="og:description" content="A time-trial of flips, momentum and moonlight. Climb from the abyssal trench to the top of the sky.">
+<meta property="og:description" content="You are a whale with 150 seconds. Dive for speed, breach, flip, and land nose-first to keep the points. Climb from the trench floor to the top of the sky.">
 <meta property="og:image" content="https://whalehop.net/img/title.jpg">
 <meta property="og:image:width" content="1600">
 <meta property="og:image:height" content="900">
@@ -29,7 +29,7 @@
 </head>
 <body>
 
-<a class="skip" href="#what">Skip to content</a>
+<a class="skip" href="#what" id="skip-link">Skip to content</a>
 
 <!-- ============================================================ THE RAIL
      The game's HUD runs a height map down the left edge. This is the same idea:
@@ -66,7 +66,7 @@
   </div>
 
   <div class="hero-foot" aria-hidden="true">
-    <span class="blink">▼</span> THE CLIMB STARTS AT THE WATERLINE
+    <span class="blink">▼</span> <span id="hero-foot-text">THE CLIMB STARTS AT THE WATERLINE</span>
   </div>
 </header>
 
@@ -75,7 +75,7 @@
 <!-- ============================================================ WHAT IT IS -->
 <section id="what" class="sec" data-band="THE SURF" data-alt="0">
   <div class="wrap">
-    <p class="eyebrow">WHAT IT IS</p>
+    <p class="eyebrow" id="what-eyebrow">WHAT IT IS</p>
     <h2 class="lede" id="blurb"></h2>
     <ul class="pitch" id="pitch"></ul>
     <div class="facts" id="facts"></div>
@@ -85,7 +85,7 @@
 <!-- ============================================================ FEATURES -->
 <section id="features" class="sec" data-band="LASSEN VEIL" data-alt="2000">
   <div class="wrap">
-    <p class="eyebrow">HOW IT WAS BUILT</p>
+    <p class="eyebrow" id="features-eyebrow">HOW IT WAS BUILT</p>
     <div class="feat-grid" id="features-grid"></div>
   </div>
 </section>
@@ -93,10 +93,9 @@
 <!-- ============================================================ GALLERY -->
 <section id="gallery" class="sec" data-band="SEA OF STARS" data-alt="25000">
   <div class="wrap">
-    <p class="eyebrow">THE CLIMB</p>
-    <h3 class="sec-h">Nineteen bands, bottom to top</h3>
-    <p class="sec-sub">Every frame below is a screenshot of the running game, captured from the
-      real build by <code>tools/site-shots.mjs</code>. Nothing here is a mock-up.</p>
+    <p class="eyebrow" id="gallery-eyebrow">THE CLIMB</p>
+    <h3 class="sec-h" id="gallery-heading">Nineteen bands, bottom to top</h3>
+    <p class="sec-sub" id="gallery-sub">Every frame below is a screenshot of the running game.</p>
     <div class="shots" id="shots"></div>
   </div>
 </section>
@@ -104,8 +103,8 @@
 <!-- ============================================================ FEEDS -->
 <section id="feeds" class="sec" data-band="THE ARCADE" data-alt="300000">
   <div class="wrap">
-    <p class="eyebrow">LATEST</p>
-    <h3 class="sec-h">Everything el3v8or is making</h3>
+    <p class="eyebrow" id="feeds-eyebrow">LATEST</p>
+    <h3 class="sec-h" id="feeds-heading">Everything el3v8or is making</h3>
     <p class="sec-sub" id="feeds-sub"></p>
     <div class="feeds" id="feeds-grid"></div>
   </div>
