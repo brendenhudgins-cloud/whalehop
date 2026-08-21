@@ -1,0 +1,73 @@
+# Deploy whalehop.net to GitHub Pages, refreshing the three feeds on the way out.
+#
+# ONE WORKFLOW, NOT TWO, AND THAT IS THE WHOLE TRICK. The obvious split — a "refresh feeds"
+# job that commits feeds.json, and a separate "deploy" job triggered by that commit — does
+# not work: a push made with the built-in GITHUB_TOKEN deliberately does NOT trigger further
+# workflow runs, so the deploy would never fire and the site would only update when a human
+# happened to push. Fetching inside the deploy job avoids the problem entirely, and has the
+# side benefit of producing no bot commits at all.
+#
+# The feeds.json committed here is therefore a SEED and a local-preview fallback, not what
+# visitors get. Visitors get whatever this job fetched.
+
+name: pages
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    # Every six hours. The three sources move on the order of days, not minutes; six hours
+    # keeps the "updated Nh ago" line honest without burning free Actions minutes.
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never let a scheduled refresh and a push-deploy publish over each other. cancel-in-progress
+# is false so an in-flight deploy finishes rather than leaving Pages half-updated.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"   # global fetch is built in from 18
+
+      - name: Refresh feeds
+        # No npm install: tools/feeds.mjs has no dependencies.
+        # continue-on-error because a dead third-party API must not block a deploy — the
+        # script carries each source's last good answer forward, so the worst case is a
+        # slightly stale panel rather than no site.
+        continue-on-error: true
+        run: node tools/feeds.mjs
+
+      - name: Show what shipped
+        run: |
+          node -e '
+            const f = require("./feeds.json");
+            console.log("generated", f.generated);
+            for (const [k, v] of Object.entries(f.sources))
+              console.log(k.padEnd(9), (v.items?.length ?? 0) + " items",
+                          v.error ? "STALE: " + v.error : "");
+          '
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          # the site is the repo root; CNAME rides along in the artifact, which is what keeps
+          # the custom domain attached (there is no gh-pages branch for Pages to write one into)
+          path: .
+      - id: deployment
+        uses: actions/deploy-pages@v4

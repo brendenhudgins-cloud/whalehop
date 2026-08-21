@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WHALE HOP — Lassen Seas</title>
+<meta name="description" content="A time-trial of flips, momentum and moonlight. Climb from the abyssal trench to the top of the sky.">
+<meta name="theme-color" content="#050415">
+
+<!-- og:image MUST be absolute: link scrapers do not resolve a relative URL and do not run
+     JS, so these cannot be filled in from content.json at runtime like everything else on the
+     page. They are the one place a URL is duplicated — keep them in step with `site.url`. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="WHALE HOP">
+<meta property="og:url" content="https://whalehop.net/">
+<meta property="og:title" content="WHALE HOP — Lassen Seas">
+<meta property="og:description" content="A time-trial of flips, momentum and moonlight. Climb from the abyssal trench to the top of the sky.">
+<meta property="og:image" content="https://whalehop.net/img/title.jpg">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="900">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23050415'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' fill='%23ffd166' font-family='monospace'%3E%E2%89%88%3C/text%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<a class="skip" href="#what">Skip to content</a>
+
+<!-- ============================================================ THE RAIL
+     The game's HUD runs a height map down the left edge. This is the same idea:
+     the page is ordered as a climb, so the rail is both a progress readout and
+     the table of contents. Populated by site.js from the real BANDS list. -->
+<nav id="rail" aria-label="Sections">
+  <div class="rail-line" aria-hidden="true"><span class="rail-dot"></span></div>
+  <ol class="rail-list"></ol>
+</nav>
+
+<!-- ============================================================ HERO -->
+<header class="hero" id="top">
+  <div class="hero-shot" aria-hidden="true"></div>
+  <div class="hero-scrim" aria-hidden="true"></div>
+
+  <div class="hero-inner">
+    <!-- Centre the BLOCK, never the lines: this pre is text-align:left inside a
+         centred inline-block, because centring a pre centres each line
+         independently and any line a character shorter slides sideways. -->
+    <pre id="logo" role="img" aria-label="Whale Hop"> __      __ _  _   _   _     ___
+ \ \    / /| || | /_\ | |   | __|
+  \ \/\/ / | __ |/ _ \| |__ | _|
+   \_/\_/  |_||_/_/ \_\____||___|
+        _  _   ___   ___
+       | || | / _ \ | _ \
+       | __ || (_) ||  _/
+       |_||_| \___/ |_|</pre>
+
+    <p id="hero-sub">L A S S E N &nbsp; S E A S</p>
+    <p id="hero-tag" class="hero-tag"></p>
+
+    <div class="cta" id="cta"></div>
+    <p class="cta-note" id="cta-note"></p>
+  </div>
+
+  <div class="hero-foot" aria-hidden="true">
+    <span class="blink">▼</span> THE CLIMB STARTS AT THE WATERLINE
+  </div>
+</header>
+
+<main>
+
+<!-- ============================================================ WHAT IT IS -->
+<section id="what" class="sec" data-band="THE SURF" data-alt="0">
+  <div class="wrap">
+    <p class="eyebrow">WHAT IT IS</p>
+    <h2 class="lede" id="blurb"></h2>
+    <ul class="pitch" id="pitch"></ul>
+    <div class="facts" id="facts"></div>
+  </div>
+</section>
+
+<!-- ============================================================ FEATURES -->
+<section id="features" class="sec" data-band="LASSEN VEIL" data-alt="2000">
+  <div class="wrap">
+    <p class="eyebrow">HOW IT WAS BUILT</p>
+    <div class="feat-grid" id="features-grid"></div>
+  </div>
+</section>
+
+<!-- ============================================================ GALLERY -->
+<section id="gallery" class="sec" data-band="SEA OF STARS" data-alt="25000">
+  <div class="wrap">
+    <p class="eyebrow">THE CLIMB</p>
+    <h3 class="sec-h">Nineteen bands, bottom to top</h3>
+    <p class="sec-sub">Every frame below is a screenshot of the running game, captured from the
+      real build by <code>tools/site-shots.mjs</code>. Nothing here is a mock-up.</p>
+    <div class="shots" id="shots"></div>
+  </div>
+</section>
+
+<!-- ============================================================ FEEDS -->
+<section id="feeds" class="sec" data-band="THE ARCADE" data-alt="300000">
+  <div class="wrap">
+    <p class="eyebrow">LATEST</p>
+    <h3 class="sec-h">Everything el3v8or is making</h3>
+    <p class="sec-sub" id="feeds-sub"></p>
+    <div class="feeds" id="feeds-grid"></div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <p class="foot-line" id="foot-line"></p>
+    <p class="foot-col" id="foot-col"></p>
+    <p class="foot-links" id="foot-links"></p>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+</body>
+</html>

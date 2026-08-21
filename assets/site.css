@@ -1,0 +1,432 @@
+/* WHALE HOP — promo site.
+   ---------------------------------------------------------------------------
+   Every value here that has a counterpart in the game was copied from the game
+   rather than eyeballed. The palette block is `:root` out of whale-hop.html; the
+   sky stops are the altitude gradient out of NOTES-visual-identity.md; the panel
+   chrome, the dashed rules, the `·`/`▶` marker and the focus treatment are the
+   interface rules that file calls load-bearing.
+
+   THE PAGE IS ORDERED AS A CLIMB. Scrolling down goes UP through the game's sky:
+   sunrise gold at the waterline, the pink band, violet, deep indigo, near-black,
+   and the Arcade's pure black at the footer. The left rail is the game's HUD
+   height map doing the same job it does in the game.
+
+   TWO RULES BORROWED VERBATIM, both of which cost the game real bugs:
+     * Focus repaints, never reflows. Lift, glow, ring and outline are safe
+       (transform / box-shadow / outline do not participate in layout). Anything
+       touching width, border-width, content or flex-item count is not — which is
+       why the nav marker lives in a fixed-width slot and is always present,
+       merely transparent, rather than being inserted on focus.
+     * Gold means value. Teal means attention. They never swap jobs.
+   --------------------------------------------------------------------------- */
+
+:root{
+  /* ---- interface palette: verbatim from whale-hop.html ---- */
+  --ink:#f4eede; --dim:#7fa0b5; --faint:#43607a;
+  --panel:rgba(4,15,28,.86); --panel2:rgba(7,22,40,.92);
+  --line:#1f4460; --line-hi:#3b7ea6;
+  --gold:#ffd166; --sun:#ffb14d; --rose:#ff5e78; --violet:#b06ae0;
+  --teal:#37d6c5; --sea:#0b2b45; --deep:#03101d;
+  --bad:#ff7b6b; --good:#7be09a;
+
+  /* ---- the dark outline: rgba(7,13,32,0.9), never pure black, never opaque ---- */
+  --outline:rgba(7,13,32,.9);
+
+  --maxw:1180px;
+  --gut:clamp(20px,4vw,64px);
+  --railpad:0px;                  /* set to the rail's width once the rail is shown */
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
+
+body{
+  font-family:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  color:var(--ink); background:#050415;
+  font-size:15px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+/* THE SKY GRADIENT, as a journey rather than a backdrop. These are the game's own
+   altitude stops, remapped from 0–300,000m onto the length of the document: gold at
+   the waterline where the hero sits, then the pink band, violet, indigo, near-black,
+   and the Arcade's pure black under the footer. `background-attachment:fixed` is
+   deliberately NOT used — the gradient must travel with the page, because travelling
+   through it is the entire idea. */
+body::before{
+  content:""; position:absolute; inset:0; z-index:-2;
+  background:linear-gradient(180deg,
+    #0a2440   0%,     /* the twilight the hero plate fades into */
+    #3d1a63  17%,     /* 2,600m   violet, on the way out of the pink band */
+    #1d2260  37%,     /* 7,000m   deep indigo */
+    #0a0a2b  56%,     /* 16,000m  near-black — but not black yet */
+    #050415  70%,     /* 40,000m  space */
+    #240a48  87%,     /* 200,000m the Great Whale's faint purple */
+    #000000 100%      /* 300,000m pure black from the Arcade upward */
+  );
+}
+
+/* A faint glyph texture over the whole page — the game's world is made of characters,
+   and a flat CSS gradient underneath vector-crisp text reads as a different game.
+   Cheap: two repeating gradients, no image, no paint cost worth measuring. */
+body::after{
+  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background:
+    repeating-linear-gradient(90deg, rgba(244,238,222,.030) 0 1px, transparent 1px 9px),
+    repeating-linear-gradient(180deg, rgba(244,238,222,.024) 0 1px, transparent 1px 16px);
+  /* soft-light rather than overlay: `overlay` against a saturated sunset pulls the whole
+     hero toward brown, which is exactly the flat sky NOTES-visual-identity.md says the
+     gradient must never be until the Arcade. */
+  mix-blend-mode:soft-light; opacity:.5;
+}
+
+main,.foot{padding-left:var(--railpad)}
+img{max-width:100%;display:block}
+a{color:var(--teal);text-decoration:none}
+a:hover{color:var(--ink)}
+code{font:inherit;color:var(--gold);font-size:.92em}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--gut);}
+
+.skip{position:absolute;left:-9999px;top:0;z-index:100;background:var(--panel2);
+  border:1px solid var(--teal);padding:10px 16px;color:var(--ink)}
+.skip:focus{left:12px;top:12px}
+
+/* ============================================================ THE RAIL
+   The game's height map, down the left edge. Fixed, so it tracks the climb.
+   Below 1100px there is no room beside the content and it is removed entirely
+   rather than folded somewhere it does not belong. */
+#rail{
+  position:fixed; left:22px; top:50%; transform:translateY(-50%);
+  z-index:40; width:164px; pointer-events:auto;
+  font-size:10px; letter-spacing:.13em;
+}
+.rail-line{position:absolute;left:0;top:6px;bottom:6px;width:1px;background:var(--line)}
+.rail-dot{position:absolute;left:-3px;width:7px;height:7px;border-radius:50%;
+  background:var(--teal);box-shadow:0 0 10px rgba(55,214,197,.7);
+  top:0;transition:top .25s ease}
+.rail-list{list-style:none;padding-left:16px;display:flex;flex-direction:column;gap:14px}
+.rail-list a{
+  color:var(--faint);display:block;transition:color .1s;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+/* The marker sits in a RESERVED SLOT — fixed width, fixed line-height, always
+   present and merely transparent until active. Swapping "·" for "▶" free-form
+   shifts the label, because "▶" is not in IBM Plex Mono and falls back to a font
+   with different metrics: 11.11px against 15.03px in the game's own measurement. */
+.rail-list a::before{
+  content:"▶"; color:transparent; margin-right:8px;
+  display:inline-block; width:1em; line-height:1; text-align:center;
+}
+.rail-list a:hover{color:var(--dim)}
+.rail-list a.on{color:var(--ink)}
+.rail-list a.on::before{color:var(--teal)}
+.rail-alt{display:block;color:var(--faint);font-size:9px;letter-spacing:.08em;
+  margin-left:calc(1em + 8px);margin-top:2px}
+.rail-list a.on .rail-alt{color:var(--gold)}
+@media (min-width:1101px){ :root{--railpad:196px} }
+@media (max-width:1100px){ #rail{display:none} }
+
+/* ============================================================ HERO */
+.hero{
+  position:relative; min-height:100svh; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; text-align:center;
+  padding:96px var(--gut) 108px; overflow:hidden; isolation:isolate;
+}
+/* The hero backdrop is a real frame of the running game. It is scrimmed hard
+   because the dark outline only works against a background lighter than it is —
+   and the logo below must stay legible over a sunset. */
+.hero-shot{
+  position:absolute; inset:0; z-index:-2;
+  /* `hero.jpg` is the title screen's WORLD render with the interface layer hidden —
+     the game's own wordmark sitting under this page's wordmark produced two
+     overlapping logos, legible in neither. Captured by `site-shots.mjs hero`. */
+  background:url("../img/hero.jpg") center 40%/cover no-repeat;
+}
+/* Two jobs, and they are separated because they want different shapes.
+   1. A soft pool of dark behind the CENTRE only, so gold type has something darker
+      than itself to sit on — the dark outline buys nothing against a lighter
+      background, and a gold logo on a gold sky is that case exactly.
+   2. A hard fade at the BOTTOM into the twilight the page gradient starts from, so
+      the hero hands off to the climb without a seam. */
+.hero-scrim{
+  position:absolute; inset:0; z-index:-1;
+  background:
+    /* the pool, behind the wordmark */
+    radial-gradient(46% 40% at 50% 41%,
+      rgba(3,10,22,.52) 0%, rgba(3,10,22,.26) 55%, rgba(3,10,22,0) 100%),
+    /* a flat dusk over the whole plate. The sky here sits around #e8a86a, which is
+       a hair off --gold #ffd166 — gold type on it reads as an outline, not a
+       wordmark. Dropping the whole plate ~35% keeps the sunset and buys the
+       contrast back, rather than lighting the logo (which is how the game briefly
+       grew a white-outlined orca nobody asked for). */
+    linear-gradient(rgba(4,12,24,.36), rgba(4,12,24,.36)),
+    linear-gradient(180deg,
+      rgba(5,4,21,.22) 0%, rgba(5,4,21,0) 20%,
+      rgba(7,26,46,0) 58%, rgba(7,26,46,.72) 88%, #071a2e 100%);
+}
+
+#logo{
+  font-family:inherit; font-weight:700;
+  font-size:clamp(6px,3.1vw,18px); line-height:1.12; white-space:pre;
+  color:var(--gold);
+  /* Centre the BLOCK, never the lines. */
+  display:inline-block; text-align:left;
+  text-shadow:0 0 22px rgba(255,140,60,.45), 0 0 2px #000;
+  filter:drop-shadow(0 3px 0 rgba(90,40,0,.6));
+}
+#hero-sub{
+  margin-top:18px; color:var(--teal); letter-spacing:.4em; font-size:12px;
+  text-shadow:0 0 12px rgba(55,214,197,.35), 0 1px 2px var(--outline);
+}
+.hero-tag{
+  margin-top:20px; color:var(--ink); font-size:clamp(13px,1.6vw,16px);
+  letter-spacing:.04em; text-shadow:0 1px 3px var(--outline);
+}
+
+.cta{margin-top:34px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+/* Affordable = gold border, gold gradient from the top edge, gold button.
+   Focused = teal ring, 22px glow, lifts 2px. Both verbatim from the game's cards. */
+.btn{
+  font:inherit; font-size:13px; letter-spacing:.18em; font-weight:600;
+  padding:13px 26px; cursor:pointer; position:relative;
+  background:linear-gradient(180deg, rgba(255,209,102,.18), rgba(255,209,102,.04));
+  border:1px solid var(--gold); color:var(--gold);
+  transition:transform .1s, box-shadow .1s, color .1s, background .1s;
+}
+.btn:hover,.btn:focus-visible{
+  outline:none; color:#1a1206;
+  background:var(--gold);
+  box-shadow:0 0 0 2px var(--teal), 0 0 22px rgba(55,214,197,.45);
+  transform:translateY(-2px);
+}
+.btn.ghost{
+  background:none; border-color:var(--line-hi); color:var(--dim);
+}
+.btn.ghost:hover,.btn.ghost:focus-visible{
+  background:rgba(55,214,197,.12); color:var(--ink); border-color:var(--teal);
+}
+/* "Coming soon" is a STATE, not a disabled button — it still tells you where to
+   look instead. Dimmed to the game's disabled opacity of .35 on the border only,
+   so the label stays readable. */
+.btn.soon{ border-color:rgba(255,209,102,.35); color:rgba(255,209,102,.6);
+  background:none; cursor:default }
+.btn.soon:hover{ transform:none; box-shadow:none; background:none;
+  color:rgba(255,209,102,.6) }
+.cta-note{margin-top:16px;color:var(--dim);font-size:11.5px;letter-spacing:.06em;
+  text-shadow:0 1px 2px var(--outline)}
+
+.hero-foot{
+  position:absolute; bottom:26px; left:0; right:0;
+  color:rgba(244,238,222,.5); font-size:10px; letter-spacing:.26em;
+  text-shadow:0 1px 3px var(--outline);
+}
+.blink{animation:blink 1.9s steps(2,start) infinite}
+@keyframes blink{to{opacity:.15}}
+@media (prefers-reduced-motion:reduce){ .blink{animation:none} }
+
+/* ============================================================ SECTIONS */
+.sec{padding:clamp(72px,11vw,148px) 0;position:relative}
+
+
+.eyebrow{
+  color:var(--teal); letter-spacing:.28em; font-size:11px;
+  text-transform:uppercase; margin-bottom:14px;
+}
+.lede{
+  font-size:clamp(18px,2.5vw,27px); font-weight:400; line-height:1.5;
+  letter-spacing:-.01em; max-width:24ch; max-width:52ch;
+  text-shadow:0 1px 3px var(--outline);
+}
+.sec-h{font-size:clamp(17px,2vw,22px);letter-spacing:.06em;font-weight:600;margin-bottom:10px}
+.sec-sub{color:var(--dim);font-size:13.5px;max-width:62ch;margin-bottom:34px}
+
+.pitch{list-style:none;margin-top:28px;display:grid;gap:11px;max-width:64ch}
+.pitch li{
+  color:var(--dim); font-size:13.5px; display:flex; gap:12px; align-items:baseline;
+}
+.pitch li::before{
+  content:"▶"; color:var(--teal); flex:0 0 1em;
+  display:inline-block; width:1em; line-height:1; text-align:center; font-size:.8em;
+}
+
+/* ---- the fact strip: every tile the same size, like the game's cards ---- */
+.facts{
+  margin-top:44px; display:grid; gap:1px; background:var(--line);
+  border:1px solid var(--line);
+  grid-template-columns:repeat(auto-fit,minmax(155px,1fr));
+}
+.fact{background:var(--panel);padding:18px 16px}
+.fact b{display:block;color:var(--gold);font-size:26px;font-weight:700;line-height:1.1}
+.fact span{display:block;color:var(--ink);font-size:11.5px;letter-spacing:.16em;
+  text-transform:uppercase;margin-top:7px}
+.fact em{display:block;color:var(--faint);font-size:11px;font-style:normal;margin-top:4px}
+
+/* ---- panel chrome: the game's border plus its two dashed rules ---- */
+.panel{
+  background:var(--panel); border:1px solid var(--line);
+  box-shadow:0 0 0 1px #000a, 0 18px 60px #000c;
+  padding:26px 26px 24px; position:relative;
+}
+.panel::before,.panel::after{
+  content:""; position:absolute; left:10px; right:10px; height:1px;
+  background:repeating-linear-gradient(90deg,var(--line-hi) 0 6px,transparent 6px 12px);
+  opacity:.5;
+}
+.panel::before{top:5px} .panel::after{bottom:5px}
+
+.feat-grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.feat h3{font-size:15.5px;letter-spacing:.02em;margin:6px 0 12px;line-height:1.4}
+.feat p{color:var(--dim);font-size:13px}
+.feat .eyebrow{font-size:10px;margin-bottom:8px}
+/* The accent is the one thing that differs per panel: a 2px top edge in the colour
+   the feature is about. Gold = value, teal = attention, and the other two are the
+   game's own set-piece colours. */
+.feat{border-top-width:2px}
+.feat[data-accent="teal"]  {border-top-color:var(--teal)}
+.feat[data-accent="gold"]  {border-top-color:var(--gold)}
+.feat[data-accent="rose"]  {border-top-color:var(--rose)}
+.feat[data-accent="violet"]{border-top-color:var(--violet)}
+.feat[data-accent="teal"]   .eyebrow{color:var(--teal)}
+.feat[data-accent="gold"]   .eyebrow{color:var(--gold)}
+.feat[data-accent="rose"]   .eyebrow{color:var(--rose)}
+.feat[data-accent="violet"] .eyebrow{color:var(--violet)}
+
+/* ============================================================ SHOTS */
+.shots{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(340px,1fr))}
+.shot{
+  position:relative; border:1px solid var(--line); background:#000;
+  overflow:hidden; box-shadow:0 14px 44px #000a;
+  /* column + a growing caption so the panel fill reaches the bottom of the grid row:
+     captions differ by a line or two and the short ones otherwise left a black gap. */
+  display:flex; flex-direction:column;
+}
+.shot figcaption{flex:1}
+/* The first frame is the establishing one and gets the full width where there is
+   room for it — the same reason the game's title screen is not a card. */
+.shots .shot:first-child{grid-column:1/-1}
+.shot img{
+  /* `height:auto` is load-bearing. The <img> carries width="1600" height="900" so the
+     browser can reserve the box before the file arrives (no layout shift), but those
+     attributes become a UA presentational hint of `height:900px` — and `aspect-ratio`
+     is only consulted when one dimension is auto. Without this line every frame in the
+     gallery rendered 900px tall and object-fit cropped it to a portrait sliver. */
+  width:100%; height:auto; aspect-ratio:16/9; object-fit:cover;
+  transition:transform .45s ease, filter .45s ease; filter:saturate(1.02);
+}
+.shot:hover img{transform:scale(1.02)}
+@media (prefers-reduced-motion:reduce){ .shot img{transition:none} .shot:hover img{transform:none} }
+.shot figcaption{
+  padding:13px 15px 15px; background:var(--panel2);
+  border-top:1px solid var(--line);
+}
+.shot .band{
+  display:inline-block; color:var(--gold); font-size:10px; letter-spacing:.22em;
+  border:1px solid rgba(255,209,102,.4); padding:2px 8px; margin-bottom:9px;
+}
+.shot .cap{color:var(--dim);font-size:12.5px;line-height:1.55}
+
+/* ============================================================ FEEDS */
+.feeds{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  align-items:start}
+.feed{display:flex;flex-direction:column;min-width:0}
+.feed-head{display:flex;align-items:center;gap:11px;margin-bottom:4px}
+.feed-head .dot{width:8px;height:8px;flex:0 0 8px;border-radius:50%;background:var(--teal);
+  box-shadow:0 0 9px rgba(55,214,197,.6)}
+.feed[data-src="youtube"] .dot{background:var(--bad);box-shadow:0 0 9px rgba(255,123,107,.6)}
+.feed[data-src="music"]   .dot{background:var(--violet);box-shadow:0 0 9px rgba(176,106,224,.6)}
+.feed-head h3{font-size:12px;letter-spacing:.24em;font-weight:600}
+.feed-head .at{color:var(--faint);font-size:11px;letter-spacing:.04em;margin-left:auto;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.feed-blurb{color:var(--faint);font-size:11.5px;margin-bottom:16px;line-height:1.5}
+
+/* Fixed height + internal scroll, because the game's windows never resize between
+   tabs and three feed panels of wildly different length would otherwise stagger
+   the whole row. */
+.feed-list{
+  display:flex; flex-direction:column; gap:1px; background:var(--line);
+  border:1px solid var(--line); max-height:520px; overflow-y:auto;
+  scrollbar-width:thin; scrollbar-color:var(--line-hi) transparent;
+}
+.feed-list::-webkit-scrollbar{width:8px}
+.feed-list::-webkit-scrollbar-thumb{background:var(--line-hi)}
+.feed-list::-webkit-scrollbar-track{background:transparent}
+
+.item{
+  display:block; background:var(--panel); padding:13px 15px; color:inherit;
+  scroll-margin:12px; transition:background .1s, box-shadow .1s, transform .1s;
+  position:relative;
+}
+.item:hover,.item:focus-visible{
+  outline:none; background:var(--panel2); color:inherit;
+  box-shadow:inset 0 0 0 1px var(--teal), 0 0 22px rgba(55,214,197,.22);
+  transform:translateY(-2px); z-index:1;
+}
+.item .when{color:var(--faint);font-size:10.5px;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:6px}
+.item .txt{font-size:13px;line-height:1.55;color:var(--ink);overflow-wrap:anywhere}
+.item .meta{color:var(--faint);font-size:10.5px;letter-spacing:.1em;margin-top:8px;
+  display:flex;gap:14px;flex-wrap:wrap}
+.item .meta b{color:var(--dim);font-weight:400}
+
+/* a post's own images, small — the panel is a teaser, not a viewer */
+.item .thumbs{display:flex;gap:5px;margin-top:9px}
+.item .thumbs img{width:52px;height:52px;object-fit:cover;border:1px solid var(--line)}
+
+/* video and track rows are a cover plus a title, so they share a layout */
+.item.row{display:flex;gap:12px;align-items:flex-start}
+.item.row .cover{
+  width:84px;height:auto;aspect-ratio:16/9;object-fit:cover;flex:0 0 84px;
+  border:1px solid var(--line);background:#000;
+}
+.item.row.sq .cover{aspect-ratio:1/1;width:52px;flex-basis:52px}
+.item.row .body{min-width:0;flex:1}
+.item.row .txt{
+  display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;
+  overflow:hidden;font-size:12.5px;
+}
+
+.feed-foot{margin-top:12px}
+.feed-more{
+  display:inline-flex;align-items:baseline;color:var(--dim);font-size:11px;
+  letter-spacing:.16em;
+}
+.feed-more::before{
+  content:"▶"; color:var(--teal); margin-right:9px;
+  display:inline-block; width:1em; line-height:1; text-align:center; font-size:.85em;
+}
+.feed-more:hover{color:var(--ink)}
+
+.empty{background:var(--panel);padding:18px 15px;color:var(--faint);font-size:12px}
+.empty b{color:var(--bad);font-weight:400;display:block;margin-bottom:5px;
+  letter-spacing:.1em;font-size:10.5px;text-transform:uppercase}
+
+/* ============================================================ FOOTER */
+.foot{
+  border-top:1px solid var(--line); background:rgba(0,0,0,.55);
+  padding:44px 0 56px; position:relative;
+}
+
+.foot-line{color:var(--ink);font-size:12px;letter-spacing:.16em}
+.foot-col{color:var(--faint);font-size:11px;margin-top:10px;max-width:70ch;line-height:1.6}
+.foot-links{margin-top:20px;display:flex;gap:22px;flex-wrap:wrap}
+.foot-links a{color:var(--dim);font-size:11px;letter-spacing:.16em}
+.foot-links a:hover{color:var(--teal)}
+
+/* ============================================================ REVEAL
+   A 12px lift on first scroll into view. Transform and opacity only — nothing
+   here participates in layout, which is the same constraint the game's focus
+   treatment works under. */
+.rise{opacity:0;transform:translateY(12px);transition:opacity .55s ease,transform .55s ease}
+.rise.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){ .rise{opacity:1;transform:none;transition:none} }
+
+@media (max-width:640px){
+  body{font-size:14px}
+  .shots{grid-template-columns:1fr}
+  .facts{grid-template-columns:1fr 1fr}
+  .hero{min-height:92svh}
+}
