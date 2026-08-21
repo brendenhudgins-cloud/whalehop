@@ -1,9 +1,9 @@
 {
-  "generated": "2026-08-21T13:21:33.751Z",
+  "generated": "2026-08-21T14:50:28.353Z",
   "sources": {
     "bluesky": {
       "enabled": true,
-      "fetched": "2026-08-21T13:21:34.167Z",
+      "fetched": "2026-08-21T14:50:28.764Z",
       "profile": {
         "handle": "el3v8or.bsky.social",
         "displayName": "el3v8or",
@@ -91,7 +91,7 @@
     },
     "youtube": {
       "enabled": true,
-      "fetched": "2026-08-21T13:21:34.299Z",
+      "fetched": "2026-08-21T14:50:29.000Z",
       "profile": {
         "channelId": "UCt_Mt8vBqPScvh1Drg5I5Ag",
         "title": "el3v8or",
@@ -138,7 +138,7 @@
     },
     "music": {
       "enabled": true,
-      "fetched": "2026-08-21T13:21:34.834Z",
+      "fetched": "2026-08-21T14:50:29.482Z",
       "profile": {
         "username": "el3v8or",
         "displayName": "el3v8or",
@@ -151,7 +151,7 @@
         {
           "id": 3,
           "title": "el3v8or 2010-2020",
-          "url": "https://music.el3v8or.com/albums/el3v8or-2010-2020",
+          "url": "https://music.el3v8or.com/playlists/el3v8or-2010-2020",
           "cover": "https://music.el3v8or.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBYTA9IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--347fba43cf4e147b56ab644a8cabc9c7f477d271/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJVUU1SEJqb0dSVlE2RkhKbGMybDZaVjkwYjE5c2FXMXBkRnNIYVFISWFRSEkiLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--01c2b164d82b07cf9e47793fd3e7638fa414b19d/digital%20lights%20icon.PNG",
           "tracks": 15,
           "year": "2026"
@@ -159,7 +159,7 @@
         {
           "id": 2,
           "title": "Action Reaction A-Side",
-          "url": "https://music.el3v8or.com/albums/action-reaction-a-side",
+          "url": "https://music.el3v8or.com/playlists/action-reaction-a-side",
           "cover": "https://music.el3v8or.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBiZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--66217f026ef48392811633727369c94982880115/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RkhKbGMybDZaVjkwYjE5c2FXMXBkRnNIYVFISWFRSEkiLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--6acb03f909caee951522353db3614928f56a8169/action%20reaction%20album%20cover.png",
           "tracks": 5,
           "year": "2022"
@@ -169,7 +169,7 @@
         {
           "id": 39,
           "title": "Stop Me - Aug 2025 Longer - Instrumental",
-          "url": "https://music.el3v8or.com/el3v8or/stop-me-aug-2025-longer-instrumental",
+          "url": "https://music.el3v8or.com/tracks/stop-me-aug-2025-longer-instrumental",
           "cover": "https://music.el3v8or.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBGQT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--2810aca5f76a6f6afedf46d73e15a15bf702ff43/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RTNKbGMybDZaVjkwYjE5bWFXeHNXd2RwQWNocEFjZz0iLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--49d3bea0c870cccf04fe1bb1d60d282199e48b0f/cropped.jpg",
           "audio": "https://music.el3v8or.com/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBZkU9IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--64eb40e32c80195ad6fda1d2584203cd00d7d1c1/Stop%20Me%20-%20Aug%202025%20Longer%20-%20Instrumental.mp3",
           "duration": "2:40",
@@ -182,7 +182,7 @@
         {
           "id": 38,
           "title": "I Bought a Guitar VST",
-          "url": "https://music.el3v8or.com/el3v8or/i-bought-a-guitar-vst",
+          "url": "https://music.el3v8or.com/tracks/i-bought-a-guitar-vst",
           "cover": "https://music.el3v8or.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBZW89IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--dbfc4885e26402924bca189aebc793218332e5d4/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RkhKbGMybDZaVjkwYjE5c2FXMXBkRnNIYVFISWFRSEkiLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--6acb03f909caee951522353db3614928f56a8169/cropped.jpg",
           "audio": "https://music.el3v8or.com/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBZXc9IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--693b73ad900b276982c8313848fad6207b64a660/I%20bought%20a%20guitar%20VST.mp3",
           "duration": "3:04",
@@ -195,7 +195,7 @@
         {
           "id": 37,
           "title": "Constellatathon",
-          "url": "https://music.el3v8or.com/el3v8or/constellatathon",
+          "url": "https://music.el3v8or.com/tracks/constellatathon",
           "cover": "https://music.el3v8or.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBZFk9IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--77e1a49fdad9b032bff9f0444ac27c3817a1574a/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RkhKbGMybDZaVjkwYjE5c2FXMXBkRnNIYVFISWFRSEkiLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--6acb03f909caee951522353db3614928f56a8169/cropped.jpg",
           "audio": "https://music.el3v8or.com/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBZHc9IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--6e10e8c93211308b72858215f3bb29556fdfcecd/Constellatathon.mp3",
           "duration": "5:30",
@@ -206,7 +206,7 @@
         {
           "id": 36,
           "title": "everything i own is chrome",
-          "url": "https://music.el3v8or.com/el3v8or/everything-i-own-is-chrome",
+          "url": "https://music.el3v8or.com/tracks/everything-i-own-is-chrome",
           "cover": "https://music.el3v8or.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBZFU9IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--a198ef29ec594cfe712b19fcfe7e588b4564ceb1/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RkhKbGMybDZaVjkwYjE5c2FXMXBkRnNIYVFISWFRSEkiLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--6acb03f909caee951522353db3614928f56a8169/cropped.jpg",
           "audio": "https://music.el3v8or.com/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBZHM9IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--2de8bd0ba94dbd21c2759b7ca1dbab485f1a5848/everything%20i%20own%20is%20chrome%20master.mp3",
           "duration": "2:58",
@@ -217,7 +217,7 @@
         {
           "id": 35,
           "title": "in the house of the ninja",
-          "url": "https://music.el3v8or.com/el3v8or/in-the-house-of-the-ninja",
+          "url": "https://music.el3v8or.com/tracks/in-the-house-of-the-ninja",
           "cover": "https://music.el3v8or.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBZFE9IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--52c5e2a7ddf83818e4a0ce296ab3e9afc3da4eea/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RkhKbGMybDZaVjkwYjE5c2FXMXBkRnNIYVFISWFRSEkiLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--6acb03f909caee951522353db3614928f56a8169/cropped.jpg",
           "audio": "https://music.el3v8or.com/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBZG89IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--7f2a71dd6f7359cfacddf8ede44f22e593486c75/in%20the%20house%20of%20the%20ninja.mp3",
           "duration": "3:36",
@@ -228,7 +228,7 @@
         {
           "id": 34,
           "title": "Base Builder",
-          "url": "https://music.el3v8or.com/el3v8or/base-builder",
+          "url": "https://music.el3v8or.com/tracks/base-builder",
           "cover": "https://music.el3v8or.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBYzQ9IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--e35693cf14383f3e87f45ead2f1f86b2929ac604/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RkhKbGMybDZaVjkwYjE5c2FXMXBkRnNIYVFISWFRSEkiLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--6acb03f909caee951522353db3614928f56a8169/cropped.jpg",
           "audio": "https://music.el3v8or.com/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBZEE9IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--a8ae7b119065e87fa6a750ec2e48161ad5dab356/bass%20practice.mp3",
           "duration": "0:44",

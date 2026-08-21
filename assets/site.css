@@ -389,6 +389,13 @@ code{font:inherit;color:var(--gold);font-size:.92em}
   overflow:hidden;font-size:12.5px;
 }
 
+/* a release, pinned above the loose tracks — gold, because a release is the thing of
+   value in that column and gold is what value looks like everywhere else here */
+.item.album .txt{color:var(--gold)}
+.item.album .cover{border-color:rgba(255,209,102,.45)}
+.meta .tag{color:var(--gold);border:1px solid rgba(255,209,102,.4);padding:0 5px;
+  letter-spacing:.18em;font-size:9.5px}
+
 .feed-foot{margin-top:12px}
 .feed-more{
   display:inline-flex;align-items:baseline;color:var(--dim);font-size:11px;

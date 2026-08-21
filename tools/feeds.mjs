@@ -39,6 +39,7 @@ const FEEDS = path.join(ROOT, "feeds.json");
 const UA = "whalehop.net site builder (+https://whalehop.net) node-fetch";
 const args = process.argv.slice(2);
 const CHECK = args.includes("--check");
+const VERIFY = args.includes("--verify");
 const only = args.filter((a) => !a.startsWith("--"));
 const want = (k) => !only.length || only.includes(k);
 
@@ -202,10 +203,15 @@ async function music() {
       url: `${host}/${user}`,
       trackCount: (tracks.collection || []).length,
     },
+    // ROUTES ARE GLOBAL, NOT NESTED UNDER THE USER. Rauversion links a track as
+    // /tracks/<slug> and an album as /playlists/<slug> — an album IS a playlist with
+    // playlist_type:"album", which is why there is no /albums/ route at all. The first
+    // version of this file guessed /<user>/<slug> and /albums/<slug> from the shape of the
+    // JSON endpoints, and shipped twelve dead links. See `--verify`.
     albums: (albums.collection || []).slice(0, LIM.albums || 3).map((a) => ({
       id: a.id,
       title: clean(a.title),
-      url: `${host}/albums/${a.slug}`,
+      url: `${host}/playlists/${a.slug}`,
       cover: abs(a.cover_url?.medium || a.cover_url?.small || null),
       tracks: a.tracks_count ?? ((a.tracks || []).length || null),
       year: a.release_date ? String(a.release_date).slice(0, 4) : (a.created_at || "").slice(0, 4),
@@ -217,7 +223,7 @@ async function music() {
       .map((t) => ({
         id: t.id,
         title: clean(t.title),
-        url: `${host}/${user}/${t.slug}`,
+        url: `${host}/tracks/${t.slug}`,
         cover: abs(t.cover_url?.medium || t.cover_url?.small || null),
         audio: abs(t.mp3_audio_url || t.audio_url || null),
         duration: mmss(t.duration),
@@ -264,6 +270,54 @@ if (!CHECK) {
   fs.writeFileSync(FEEDS, JSON.stringify(out, null, 2) + "\n");
   const kb = (fs.statSync(FEEDS).size / 1024).toFixed(1);
   console.log(`\nwrote feeds.json  ${kb}kB`);
+}
+
+// ---------------------------------------------------------------------------
+// --verify: open every link the feed emits and prove it is a real page.
+//
+// A STATUS CODE PROVES NOTHING HERE, and that is the whole reason this exists. Rauversion is
+// a client-rendered Rails app: it answers EVERY path — including nonsense — with
+// `HTTP 200` and a 16-byte HTML stub, then draws "Page not found" in JavaScript. So
+// `curl -o /dev/null -w %{http_code}` reports 200 for a dead link, which is exactly how
+// twelve broken track URLs shipped: the routes were guessed as /<user>/<slug> and
+// /albums/<slug> from the shape of the JSON endpoints, every one returned 200, and nobody
+// opened one.
+//
+// The signature that DOES separate them is a <title>. A real page ships ~3.4kB with
+//   <title>Rauversion | Stop Me … on Rauversion</title>
+// and the stub ships 16 bytes with no <title> at all. So: fetch, and demand a title.
+//
+// The same check is worth running against Bluesky and YouTube even though neither soft-404s —
+// a link that is merely CONSTRUCTED WRONG looks identical from here, and the Bluesky
+// permalink is assembled by hand out of a handle and an rkey.
+// ---------------------------------------------------------------------------
+if (VERIFY) {
+  const seen = [];
+  for (const [key, src] of Object.entries(out.sources)) {
+    if (!want(key) || src.enabled === false) continue;
+    for (const it of src.items || []) if (it.url) seen.push([key, it.title || it.text || it.id, it.url]);
+    for (const a of src.albums || []) if (a.url) seen.push([`${key}/album`, a.title, a.url]);
+    if (src.profile?.url) seen.push([`${key}/profile`, src.profile.displayName || key, src.profile.url]);
+  }
+
+  console.log(`\nverifying ${seen.length} link(s) — a 200 is not enough, each must render a <title>\n`);
+  let bad = 0;
+  for (const [key, label, url] of seen) {
+    let verdict, detail = "";
+    try {
+      const r = await fetch(url, { headers: { "User-Agent": UA }, redirect: "follow" });
+      const body = await r.text();
+      const title = (body.match(/<title[^>]*>([\s\S]*?)<\/title>/i) || [])[1];
+      if (!r.ok) { verdict = "DEAD"; detail = `HTTP ${r.status}`; }
+      else if (!title || !title.trim()) { verdict = "DEAD"; detail = `HTTP 200 but no <title> — ${body.length}B stub`; }
+      else { verdict = "ok"; detail = decode(title).slice(0, 64); }
+    } catch (e) { verdict = "DEAD"; detail = e.message; }
+    if (verdict !== "ok") bad++;
+    console.log(`  ${verdict === "ok" ? "ok  " : "DEAD"} ${key.padEnd(15)} ${String(label).slice(0, 34).padEnd(36)} ${detail}`);
+    if (verdict !== "ok") console.log(`       ${url}`);
+  }
+  console.log(bad ? `\n${bad} of ${seen.length} link(s) DEAD` : `\nall ${seen.length} links resolve`);
+  if (bad) process.exit(1);
 }
 
 // Exit non-zero only if EVERY requested source failed. One dead source is a stale panel; all

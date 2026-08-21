@@ -61,7 +61,20 @@ node tools/serve.mjs            # → http://localhost:8099   (file:// blocks fe
 node tools/feeds.mjs            # refresh all three feeds
 node tools/feeds.mjs bluesky    # just one
 node tools/feeds.mjs --check    # fetch and report, write nothing
+node tools/feeds.mjs --verify   # open every link it emits and prove it renders
 ```
+
+**Run `--verify` after any change to how a link is built.** A status code is not enough:
+Rauversion is client-rendered and answers *every* path — including nonsense — with `HTTP 200`
+and a 16-byte stub, then draws "Page not found" in JavaScript. The first version of this site
+guessed the routes as `/<user>/<slug>` and `/albums/<slug>`, every one returned 200, and twelve
+dead track links shipped. The real routes are `/tracks/<slug>` and `/playlists/<slug>` — an
+album *is* a playlist with `playlist_type:"album"`, which is why there is no `/albums/` route
+at all.
+
+`--verify` fetches each link and demands a `<title>`, which is the signature that separates a
+real page (~3.4 kB, titled) from the stub (16 bytes, untitled). It runs over Bluesky and
+YouTube too, where a wrongly *constructed* link would look identical from the outside.
 
 Re-capturing screenshots needs the game and a headless Chrome:
 

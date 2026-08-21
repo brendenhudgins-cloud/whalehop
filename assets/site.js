@@ -189,13 +189,36 @@ function itemMusic(t) {
   ]);
 }
 
+/* A release, pinned above the loose tracks. `feeds.json` carried these from the first
+   version and nothing drew them — data a page fetches and never shows is data nobody
+   notices has gone wrong, which is how the track URLs stayed broken. Either render it or
+   stop fetching it; this renders it. */
+function itemAlbum(a) {
+  const href = safeURL(a.url);
+  if (!href) return null;
+  const cover = safeURL(a.cover);
+  const meta = [el("span", { class: "tag", text: "ALBUM" })];
+  if (a.tracks) meta.push(el("span", { text: `${a.tracks} tracks` }));
+  if (a.year) meta.push(el("span", { text: a.year }));
+  return el("a", { class: "item row sq album", ...ext(href) }, [
+    cover ? el("img", { class: "cover", src: cover, alt: "", loading: "lazy", decoding: "async" }) : null,
+    el("div", { class: "body" }, [
+      el("p", { class: "txt", text: a.title }),
+      el("div", { class: "meta" }, meta),
+    ]),
+  ]);
+}
+
 const RENDERERS = { bluesky: itemBluesky, youtube: itemYouTube, music: itemMusic };
 
 function feedPanel(key, cfg, src) {
   const make = RENDERERS[key];
   const list = el("div", { class: "feed-list", id: `list-${key}` });
 
-  const items = (src?.items || []).map(make).filter(Boolean);
+  const items = [
+    ...(src?.albums || []).map(itemAlbum),
+    ...(src?.items || []).map(make),
+  ].filter(Boolean);
   if (items.length) list.append(...items);
   else {
     // A source that failed keeps its last good answer server-side, so an empty
