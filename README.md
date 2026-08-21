@@ -116,8 +116,40 @@ AAAA   @      2606:50c0:8003::153
 CNAME  www    brendenhudgins-cloud.github.io.
 ```
 
-The `www` record points at the **owner**, never the repository name — that is the detail people
-get wrong, and it fails silently by serving the owner's root Pages site instead.
+### Two things GoDaddy does that fight this
+
+**1. `www` already has a CNAME, so adding one conflicts.** GoDaddy ships every new domain with
+`CNAME www → @`. A name can hold exactly one CNAME, so the record above is an **edit of the
+existing `www` row**, not a new row. Changing the value is the whole operation.
+
+Leaving GoDaddy's default in place *appears* to work — `www` resolves through the apex to the
+GitHub IPs — but GitHub's docs warn against exactly that shape: *"If you point your custom
+subdomain to your apex domain, you will encounter issues with enforcing HTTPS."* Point it at
+the owner, not at the apex. And at the **owner** — `brendenhudgins-cloud.github.io` — never at
+the repository, which fails silently by serving the owner's root Pages site.
+
+**2. The parking A records survive, and they are not harmless.** GoDaddy points a new domain at
+its own parking service and *adding* the GitHub A records does not remove them. The apex then
+answers with six addresses:
+
+```
+185.199.108.153   GitHub          server: GitHub.com
+185.199.109.153   GitHub
+185.199.110.153   GitHub
+185.199.111.153   GitHub
+76.223.105.230    GoDaddy parking  server: DPS/2.0.0   ← delete
+13.248.243.5      GoDaddy parking  server: DPS/2.0.0   ← delete
+```
+
+DNS round-robins across all six, so **roughly a third of visitors get the parking page instead
+of the site** — intermittently, which is the worst way for it to fail: it looks fine every time
+you check it and broken to every third person. `nslookup -type=A whalehop.net 8.8.8.8` should
+list exactly the four `185.199.*` addresses and nothing else.
+
+Once DNS is right: repo Settings → Pages → Custom domain → `whalehop.net`, wait for the DNS
+check to go green, then tick **Enforce HTTPS**. The Let's Encrypt certificate is issued after
+the check passes and can take up to an hour; until then the domain is http-only, which is
+expected rather than broken.
 
 ---
 
