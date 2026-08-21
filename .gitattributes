@@ -1,0 +1,6 @@
+# LF in the repo for everything text. CNAME especially: GitHub Pages reads that file to attach
+# the custom domain, and a CRLF line ending has been known to make it read the domain with a
+# trailing \r and drop it. Checked out on Windows, committed as LF.
+* text=auto eol=lf
+*.jpg binary
+*.png binary
