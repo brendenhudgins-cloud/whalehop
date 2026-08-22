@@ -126,6 +126,64 @@ function renderNotice(C) {
   );
 }
 
+/* =========================================================== TRAILER
+
+   A YouTube Short, embedded above the features.
+
+   THE EMBED URL IS BUILT HERE, FROM AN ID. content.json carries `youtubeId` and
+   never a src, and anything that is not exactly eleven id characters is refused
+   — so the one attribute on this page that loads a third-party document cannot
+   be steered by editing a copy file. `trailer.url` is only ever used for the
+   plain "watch on YouTube" link, and it goes through safeURL like every other.
+
+   nocookie, and lazy. `youtube-nocookie.com` does not set a tracking cookie
+   until playback actually starts, and `loading="lazy"` means the whole embed —
+   roughly a megabyte of player — is not fetched at all unless a reader scrolls
+   to it. A visitor who reads the summary and leaves pays nothing for this.
+
+   NO FACADE, deliberately, though that is the usual trick for exactly this. It
+   needs a poster frame, and this video has none worth using: of the six
+   thumbnail sizes YouTube publishes, a Short has only `hqdefault` and `frame0`,
+   both 4:3 and both pillarboxing a 9:16 video down to a ~200px-wide strip of
+   real picture. A blurry letterboxed poster looks broken in a way a lazy iframe
+   does not, so the iframe draws its own.
+
+   The section deletes itself when the trailer is off, rather than emptying. An
+   eyebrow with nothing under it is worse than no section, and buildRail reads
+   the DOM afterwards, so the rail loses the stop for free. */
+
+const YT_ID = /^[A-Za-z0-9_-]{11}$/;
+
+function renderTrailer(C) {
+  const sec = $("#trailer");
+  if (!sec) return;
+  const T = C.trailer;
+  const ok = T && T.enabled !== false && typeof T.youtubeId === "string" && YT_ID.test(T.youtubeId);
+  if (!ok) { sec.remove(); return; }
+
+  if (T.band) sec.dataset.band = T.band;
+  if (T.alt != null) sec.dataset.alt = String(T.alt);
+  setText("#trailer-eyebrow", T.eyebrow);
+  setText("#trailer-heading", T.heading);
+  setText("#trailer-sub", T.sub);
+
+  $("#trailer-frame").append(el("iframe", {
+    src: `https://www.youtube-nocookie.com/embed/${T.youtubeId}?rel=0&playsinline=1`,
+    title: T.title || "Trailer",
+    loading: "lazy",
+    allow: "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share",
+    referrerPolicy: "strict-origin-when-cross-origin",
+    allowFullscreen: true,
+  }));
+
+  const href = safeURL(T.url || "");
+  if (href) {
+    $("#trailer-link").append(
+      el("a", { class: "btn ghost", text: T.linkLabel || "WATCH ON YOUTUBE", ...ext(href) })
+    );
+  }
+}
+
 /* =========================================================== HERO + COPY */
 
 function renderHero(C) {
@@ -437,6 +495,7 @@ function reveal() {
 
   renderSections(C);
   renderNotice(C);
+  renderTrailer(C);
   renderHero(C);
   renderFeatures(C);
   renderShots(C);

@@ -17,6 +17,11 @@
     "",
     "notice.enabled false removes the banner above the summary entirely — no empty box, no gap.",
     "",
+    "trailer.youtubeId is an ID, never a URL — site.js builds the embed itself and refuses",
+    "anything that is not eleven id characters. trailer.enabled false drops the whole section,",
+    "and the rail stop with it. NOTE the Short is NOT in the YouTube feed panel: the channel RSS",
+    "does not carry it, so this embed is the only way it appears on the page at all.",
+    "",
     "site.url is used for metadata only. The og: tags in index.html hold the SAME url and the",
     "SAME description — link scrapers do not run JS, so they cannot read either from here. If",
     "the site moves or the description changes, change both."
@@ -63,6 +68,19 @@
     "text": "Congrats! You are here before anything is ready to show! Consider yourself lucky!"
   },
 
+  "trailer": {
+    "enabled": true,
+    "eyebrow": "THE TRAILER",
+    "youtubeId": "cta2PQQWZz4",
+    "url": "https://www.youtube.com/shorts/cta2PQQWZz4",
+    "title": "Whale Hop — It Did a Flip",
+    "heading": "The part a screenshot cannot show you",
+    "sub": "Everything else on this page is a still, and a still cannot show you the one thing the game is actually about — what the momentum feels like coming back out of the water. This is the real build, running.",
+    "linkLabel": "WATCH ON YOUTUBE",
+    "band": "GULL LINE",
+    "alt": 120
+  },
+
   "cta": {
     "steam": {
       "url": null,
@@ -70,7 +88,7 @@
       "soonLabel": "STEAM — COMING SOON",
       "note": "There is no Steam page yet — it is still being built in the open. The devlog on Bluesky is where the date will turn up first."
     },
-    "secondary": { "label": "SEE IT MOVING", "href": "#feed-youtube" }
+    "secondary": { "label": "SEE IT MOVING", "href": "#trailer" }
   },
 
   "features": [

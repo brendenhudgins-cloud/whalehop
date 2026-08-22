@@ -88,6 +88,26 @@
   </div>
 </section>
 
+<!-- ============================================================ TRAILER
+     Between the summary and the features, and it earns a rail stop of its own:
+     buildRail reads every main .sec with a data-band, so the climb runs
+     0m → 120m → 2,000m → 25,000m → 300,000m. site.js fills the whole thing from
+     content.trailer and REMOVES this section outright when it is switched off,
+     so an empty key never leaves a headed section with a hole in it. -->
+<section id="trailer" class="sec" data-band="GULL LINE" data-alt="120">
+  <div class="wrap">
+    <p class="eyebrow" id="trailer-eyebrow">THE TRAILER</p>
+    <div class="trailer-grid">
+      <div class="trailer-frame" id="trailer-frame"></div>
+      <div class="trailer-copy">
+        <h3 class="sec-h" id="trailer-heading"></h3>
+        <p class="sec-sub" id="trailer-sub"></p>
+        <p id="trailer-link"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============================================================ FEATURES -->
 <section id="features" class="sec" data-band="LASSEN VEIL" data-alt="2000">
   <div class="wrap">
