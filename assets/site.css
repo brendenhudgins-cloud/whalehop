@@ -343,6 +343,37 @@ code{font:inherit;color:var(--gold);font-size:.92em}
 }
 .trailer-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
 
+/* ============================================================ SOUNDINGS
+   A log, so it reads as a column of dated lines rather than as cards. The date
+   sits in a fixed-width slot on wide screens so the text edges align down the
+   list; under 620px it goes above the line instead, because a 56px gutter out of
+   a 335px screen is most of the paragraph.
+
+   The marker colour is the one bit of signal: teal for the game, gold for the
+   sea. That is the palette rule doing its usual job — teal is attention, and a
+   note about the build is the half a reader came for. */
+.sound-list{list-style:none;display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}
+.sound{
+  background:var(--panel); padding:15px 18px;
+  display:grid; grid-template-columns:56px minmax(0,1fr); gap:0 16px; align-items:baseline;
+}
+.sound::before{
+  content:"·"; grid-column:1; grid-row:1;
+  color:var(--teal); font-size:15px; line-height:1; opacity:.9;
+  position:absolute; margin-left:-11px;
+}
+.sound{position:relative}
+.sound[data-kind="wild"]::before{content:"≈";color:var(--gold);font-size:12px}
+.sound-when{
+  color:var(--faint); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase;
+  white-space:nowrap;
+}
+.sound-txt{color:var(--dim);font-size:13.5px;line-height:1.65;max-width:72ch}
+@media (max-width:620px){
+  .sound{grid-template-columns:minmax(0,1fr);gap:6px}
+  .sound-when{grid-column:1}
+}
+
 /* ============================================================ SHOTS */
 .shots{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(340px,1fr))}
 .shot{

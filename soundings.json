@@ -1,0 +1,41 @@
+{
+  "_readme": [
+    "MACHINE-OWNED. Appended to by the scheduled Soundings run; do not hand-edit except to",
+    "DELETE an entry you would rather not have published. Deleting is always safe — nothing",
+    "reads back what it wrote, so a removed entry never returns.",
+    "",
+    "This is the THIRD file, and the reason it is a third file rather than a key in content.json",
+    "is the same reason feeds.json exists: content.json is Brenden's, and an automated writer",
+    "must have no way to clobber his words. Two owners, two files, no overlap.",
+    "",
+    "The rules the writer follows are in SOUNDINGS.md. Read that before adding anything."
+  ],
+  "generated": "2026-08-22T01:55:04.355Z",
+  "entries": [
+    {
+      "date": "2026-08-21",
+      "kind": "deep",
+      "text": "The whale had been quietly drawing itself a fraction of a second in the past. Extremely on-brand behaviour for a whale, and it has now been asked to join the rest of us in the present."
+    },
+    {
+      "date": "2026-08-21",
+      "kind": "wild",
+      "text": "Sperm whales sleep standing up. Whole pods of them go vertical, nose to the surface, and drift there like a filing cabinet nobody wants to open."
+    },
+    {
+      "date": "2026-08-21",
+      "kind": "deep",
+      "text": "A number on the screen would not stop showing off, even after being switched off. It has been sat down. There is no story here and we will not be taking questions."
+    },
+    {
+      "date": "2026-08-21",
+      "kind": "wild",
+      "text": "Baleen is not bone. It is keratin — the same stuff as your fingernails — which means the largest animals that have ever lived are straining dinner through a moustache."
+    },
+    {
+      "date": "2026-08-21",
+      "kind": "deep",
+      "text": "The ocean costs less to draw than it did last week. It looks exactly the same. That is the whole achievement and I would like it noted."
+    }
+  ]
+}

@@ -17,6 +17,10 @@
     "",
     "notice.enabled false removes the banner above the summary entirely — no empty box, no gap.",
     "",
+    "soundings.json is a THIRD file and it is MACHINE-OWNED, appended to by a scheduled run.",
+    "The rules that run follows are in SOUNDINGS.md. Deleting an entry from soundings.json is",
+    "always safe — nothing reads back what it wrote, so a removed entry never comes back.",
+    "",
     "trailer.youtubeId is an ID, never a URL — site.js builds the embed itself and refuses",
     "anything that is not eleven id characters. trailer.enabled false drops the whole section,",
     "and the rail stop with it. NOTE the Short is NOT in the YouTube feed panel: the channel RSS",
@@ -77,6 +81,14 @@
     "linkLabel": "WATCH ON YOUTUBE",
     "band": "GULL LINE",
     "alt": 120
+  },
+
+  "soundings": {
+    "enabled": true,
+    "eyebrow": "SOUNDINGS",
+    "heading": "Notes from the water",
+    "sub": "Short reports from somebody who is down there most days, half about the game and half about the actual ocean. A sounding is what you call a depth taken by dropping a weighted line — you learn how deep it is, not what lives there.",
+    "limit": 8
   },
 
   "cta": {

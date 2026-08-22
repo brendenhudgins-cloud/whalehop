@@ -126,6 +126,65 @@ function renderNotice(C) {
   );
 }
 
+/* =========================================================== SOUNDINGS
+
+   Short notes, a couple a day, half about the game and half about the actual
+   ocean. Written by a scheduled run; the rules it follows are in SOUNDINGS.md.
+
+   THREE FILES NOW, AND THE THIRD IS FOR THE SAME REASON AS THE SECOND.
+   content.json is Brenden's and is hand-edited. feeds.json is written by
+   tools/feeds.mjs. soundings.json is written by the scheduled run. An automated
+   writer that shared a file with the copy could clobber the copy, and the split
+   is what makes that impossible rather than merely unlikely.
+
+   The panel is CONFIGURED from content.json and FILLED from soundings.json — the
+   heading and the standfirst are Brenden's words about the feature, the entries
+   are not. A missing or empty soundings.json removes the section rather than
+   drawing an empty one: this ships before the first scheduled run has ever
+   fired, so "no entries yet" is a state that genuinely occurs and must not look
+   like a fault. */
+
+function renderSoundings(C, S) {
+  const sec = $("#soundings");
+  if (!sec) return;
+  const cfg = C.soundings || {};
+  const all = Array.isArray(S && S.entries) ? S.entries : [];
+  const items = all.filter((e) => e && typeof e.text === "string" && e.text.trim());
+  if (cfg.enabled === false || !items.length) { sec.remove(); return; }
+
+  setText("#soundings-eyebrow", cfg.eyebrow);
+  setText("#soundings-heading", cfg.heading);
+  setText("#soundings-sub", cfg.sub);
+
+  const list = $("#soundings-list");
+  const limit = Number.isFinite(cfg.limit) ? cfg.limit : 8;
+  for (const e of items.slice(0, limit)) {
+    list.append(el("li", { class: "sound", "data-kind": e.kind === "wild" ? "wild" : "deep" }, [
+      el("span", { class: "sound-when", text: soundDate(e.date) }),
+      el("p", { class: "sound-txt", text: e.text }),
+    ]));
+  }
+}
+
+/* Date only, never a relative time. `ago()` is right for a feed, where recency is
+   the point; a sounding is a log line and "3d ago" on a log reads as neglect.
+
+   A DATE IS NOT AN INSTANT, and `new Date("2026-08-21")` does not believe that:
+   the date-only form is defined to parse as UTC midnight, and toLocaleDateString
+   then renders that instant in the READER's zone. Every entry written here
+   displayed a day early — dated Aug 21, drawn as "Aug 20" — and would have done
+   so for every reader west of UTC while looking perfectly correct to one east of
+   it. Parsed field by field into a LOCAL date, the calendar day the writer typed
+   is the calendar day everyone sees, because no instant is ever involved.
+   Timestamps that really are instants (the feeds) still go through `ago()`. */
+function soundDate(iso) {
+  if (!iso) return "";
+  const ymd = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(iso).trim());
+  const t = ymd ? new Date(+ymd[1], +ymd[2] - 1, +ymd[3]) : new Date(iso);
+  if (isNaN(t)) return "";
+  return t.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+}
+
 /* =========================================================== TRAILER
 
    A YouTube Short, embedded above the features.
@@ -484,9 +543,14 @@ function reveal() {
   // `no-store` on content.json only: it is small, it is the thing being edited, and a
   // cached copy is exactly what makes an edit look like it did not take. feeds.json is
   // rewritten by the deploy, so it may be cached normally.
-  const [C, F] = await Promise.all([
+  // soundings.json gets `no-store` for the same reason content.json does: it is
+  // rewritten several times a day, and a cached copy is exactly what makes a new
+  // entry look like it did not post. It also catches to an empty set rather than
+  // rejecting — a missing third file must cost the page a panel, never the page.
+  const [C, F, S] = await Promise.all([
     fetch("content.json", { cache: "no-store" }).then((r) => r.json()),
     fetch("feeds.json").then((r) => r.json()).catch(() => ({ sources: {} })),
+    fetch("soundings.json", { cache: "no-store" }).then((r) => r.json()).catch(() => ({ entries: [] })),
   ]);
 
   document.title = C.site?.title || document.title;
@@ -494,6 +558,7 @@ function reveal() {
   renderSections(C);
   renderNotice(C);
   renderTrailer(C);
+  renderSoundings(C, S);
   renderHero(C);
   renderFeatures(C);
   renderShots(C);
