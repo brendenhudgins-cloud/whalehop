@@ -63,6 +63,41 @@ jobs:
                           v.error ? "STALE: " + v.error : "");
           '
 
+      - name: Stamp the asset URLs with this commit
+        # WHY THIS EXISTS. Pages serves everything with `Cache-Control: max-age=600`, and the
+        # artifact is the repo root verbatim, so index.html and assets/site.js are two
+        # independently-cached documents with no version linking them. For ten minutes after a
+        # deploy a RETURNING visitor can therefore be served NEW html against OLD js — which is
+        # not a theoretical worry: it happened on the deploy that added the trailer, and the
+        # symptom was a headed, empty <section id="trailer"> and a rail stop pointing at
+        # nothing, because the html had the section and the cached js had no renderTrailer to
+        # fill it. Measured from the page: executed bundle 18,128 bytes, server copy 20,712.
+        #
+        # Stamping the query with the commit sha makes the asset URL change whenever the html
+        # changes, so a given index.html can only ever load the js it shipped with. It runs on
+        # the RUNNER and is never committed: the repo keeps clean `assets/site.js` references,
+        # so tools/serve.mjs and a plain file:// open are unaffected and there is still no
+        # build step.
+        #
+        # It asserts both substitutions rather than trusting sed to have matched — a rewrite
+        # that silently matches nothing is exactly the shape of check that cannot fail.
+        run: |
+          node -e '
+            const fs = require("fs");
+            const v = (process.env.GITHUB_SHA || "dev").slice(0, 8);
+            let html = fs.readFileSync("index.html", "utf8");
+            for (const asset of ["assets/site.css", "assets/site.js"]) {
+              const before = html;
+              html = html.replace(asset + "\"", asset + "?v=" + v + "\"");
+              if (html === before) {
+                console.error("FAILED: no reference to " + asset + " in index.html");
+                process.exit(1);
+              }
+            }
+            fs.writeFileSync("index.html", html);
+            console.log("stamped assets ?v=" + v);
+          '
+
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
