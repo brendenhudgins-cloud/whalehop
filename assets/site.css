@@ -319,14 +319,22 @@ code{font:inherit;color:var(--gold);font-size:.92em}
 .feat[data-accent="violet"] .eyebrow{color:var(--violet)}
 
 /* ============================================================ TRAILER
-   A 9:16 Short. Left as full-bleed it would be taller than the viewport on any
-   desktop, so the frame is capped at 340px and the copy sits beside it; under
-   860px the two stack and the frame centres. `aspect-ratio` holds the box before
-   the lazy iframe arrives, so nothing below it jumps when the embed loads. */
-.trailer-grid{
-  display:grid; gap:clamp(22px,4vw,44px); align-items:center;
-  grid-template-columns:minmax(0,340px) minmax(0,1fr);
+   A 9:16 Short, centred, with its watch link under it. Full-bleed it would be
+   taller than the viewport on any desktop, so the frame is capped at 340px and
+   the column centres inside the wrap. No breakpoint: one centred column is
+   already the narrow layout, so there is nothing for a media query to change.
+
+   The eyebrow centres with it. Every other section on this page ranges its
+   eyebrow left, but the rule being followed there is that the label sits over
+   its content — and this section's content is no longer left-ranged.
+
+   `aspect-ratio` holds the box before the lazy iframe arrives, so nothing below
+   it jumps when the embed loads. */
+.trailer-col{
+  display:flex; flex-direction:column; align-items:center;
+  gap:clamp(16px,2.5vw,24px);
 }
+#trailer .eyebrow{text-align:center}
 .trailer-frame{
   aspect-ratio:9/16; width:100%; max-width:340px;
   border:1px solid var(--line); background:var(--deep);
@@ -334,11 +342,6 @@ code{font:inherit;color:var(--gold);font-size:.92em}
   overflow:hidden; position:relative;
 }
 .trailer-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
-.trailer-copy .sec-sub{margin-bottom:22px}
-@media (max-width:860px){
-  .trailer-grid{grid-template-columns:minmax(0,1fr)}
-  .trailer-frame{margin:0 auto}
-}
 
 /* ============================================================ SHOTS */
 .shots{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(340px,1fr))}

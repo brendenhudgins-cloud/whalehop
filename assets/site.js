@@ -164,8 +164,6 @@ function renderTrailer(C) {
   if (T.band) sec.dataset.band = T.band;
   if (T.alt != null) sec.dataset.alt = String(T.alt);
   setText("#trailer-eyebrow", T.eyebrow);
-  setText("#trailer-heading", T.heading);
-  setText("#trailer-sub", T.sub);
 
   $("#trailer-frame").append(el("iframe", {
     src: `https://www.youtube-nocookie.com/embed/${T.youtubeId}?rel=0&playsinline=1`,
