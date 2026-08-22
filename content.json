@@ -17,6 +17,10 @@
     "",
     "notice.enabled false removes the banner above the summary entirely — no empty box, no gap.",
     "",
+    "whale.file is generated, not drawn by hand: tools/whale-svg.mjs re-exports it from the",
+    "game source so the site shows the whale the GAME paints. Re-run it if the hull, the rig",
+    "or the palette moves. whale.enabled false drops the box and the copy goes full width.",
+    "",
     "soundings.json is a THIRD file and it is MACHINE-OWNED, appended to by a scheduled run.",
     "The rules that run follows are in SOUNDINGS.md. Deleting an entry from soundings.json is",
     "always safe — nothing reads back what it wrote, so a removed entry never comes back.",
@@ -81,6 +85,16 @@
     "linkLabel": "WATCH ON YOUTUBE",
     "band": "GULL LINE",
     "alt": 120
+  },
+
+  "whale": {
+    "enabled": true,
+    "file": "img/whale-character.svg",
+    "w": 2052,
+    "h": 741,
+    "alt": "The character whale: a pale blue whale with a heavy dark outline, facing left",
+    "caption": "CHARACTER",
+    "sub": "one of eight hulls · the colour is yours to pick"
   },
 
   "soundings": {

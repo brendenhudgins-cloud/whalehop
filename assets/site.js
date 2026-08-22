@@ -273,6 +273,43 @@ function renderHero(C) {
   }
 }
 
+/* The whale beside the summary. The SVG is GENERATED from the game source by
+   tools/whale-svg.mjs — same idea as the screenshots being real frames: the site
+   shows the whale the game paints, in the shades skinShades() resolves, rather
+   than a redrawing that can quietly stop matching.
+
+   .what-grid is a two-column grid, and REMOVING THE FIGURE IS NOT ENOUGH ON ITS
+   OWN — grid-template-columns is a property of the container, so deleting the
+   only item in column two leaves the column standing there empty and the copy
+   still capped at 58ch beside nothing. The container has to be told, which is
+   what `.solo` does. */
+
+function renderWhale(C) {
+  const box = $("#whale-box");
+  if (!box) return;
+  const W = C.whale;
+  if (!W || W.enabled === false || !W.file) {
+    box.remove();
+    $(".what-grid")?.classList.add("solo");   // collapse the empty second column
+    return;
+  }
+
+  /* width/height reserve the box before the file lands, the way the shots do.
+     They are the SVG's own intrinsic size, reported by tools/whale-svg.mjs, and
+     CSS overrides both — they exist only so the layout does not jump. */
+  box.append(el("img", {
+    class: "whale-img", src: W.file, alt: W.alt || "",
+    loading: "lazy", decoding: "async",
+    width: W.w || 2052, height: W.h || 741,
+  }));
+  if (W.caption || W.sub) {
+    box.append(el("figcaption", { class: "whale-cap" }, [
+      W.caption ? el("b", { text: W.caption }) : null,
+      W.sub ? el("span", { text: W.sub }) : null,
+    ]));
+  }
+}
+
 function renderFeatures(C) {
   const g = $("#features-grid");
   for (const f of C.features || []) {
@@ -560,6 +597,7 @@ function reveal() {
   renderTrailer(C);
   renderSoundings(C, S);
   renderHero(C);
+  renderWhale(C);
   renderFeatures(C);
   renderShots(C);
   renderFeeds(C, F);

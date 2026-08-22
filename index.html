@@ -82,8 +82,16 @@
 <section id="what" class="sec" data-band="THE SURF" data-alt="0">
   <div class="wrap">
     <p class="eyebrow" id="what-eyebrow">WHAT IT IS</p>
-    <h2 class="lede" id="blurb"></h2>
-    <ul class="pitch" id="pitch"></ul>
+    <!-- The copy keeps its measure and the whale takes the room left over beside
+         it. site.js drops #whale-box when there is no whale, and .what-grid falls
+         back to a single column, so the copy is never left short of a partner. -->
+    <div class="what-grid">
+      <div class="what-copy">
+        <h2 class="lede" id="blurb"></h2>
+        <ul class="pitch" id="pitch"></ul>
+      </div>
+      <figure class="whale-box panel" id="whale-box"></figure>
+    </div>
     <div class="facts" id="facts"></div>
   </div>
 </section>
