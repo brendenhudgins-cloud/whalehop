@@ -15,6 +15,8 @@
     "",
     "To point the CTA at a real Steam page, set cta.steam.url and the button stops saying soon.",
     "",
+    "notice.enabled false removes the banner above the summary entirely — no empty box, no gap.",
+    "",
     "site.url is used for metadata only. The og: tags in index.html hold the SAME url and the",
     "SAME description — link scrapers do not run JS, so they cannot read either from here. If",
     "the site moves or the description changes, change both."
@@ -53,6 +55,12 @@
       "eyebrow": "LATEST",
       "heading": "Everything el3v8or is making"
     }
+  },
+
+  "notice": {
+    "enabled": true,
+    "eyebrow": "EARLY",
+    "text": "Congrats! You are here before anything is ready to show! Consider yourself lucky!"
   },
 
   "cta": {

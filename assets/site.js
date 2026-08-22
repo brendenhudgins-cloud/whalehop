@@ -100,6 +100,32 @@ function renderSections(C) {
   setText("#feeds-heading", S.feeds?.heading);
 }
 
+/* =========================================================== NOTICE
+
+   A banner above the summary, for whatever is true about the project right now
+   and will not be true for long. It renders only when `notice.enabled` is true
+   AND `notice.text` is a non-empty string — a half-filled key leaves the slot
+   empty rather than drawing an empty box, which is the same rule the CTA follows
+   for a null Steam url.
+
+   TEAL, not gold. The palette rule this site borrowed from the game is that gold
+   means value and teal means attention, and they never swap jobs. A banner is
+   attention, however congratulatory its wording. */
+
+function renderNotice(C) {
+  const N = C.notice;
+  if (!N || N.enabled === false) return;
+  if (typeof N.text !== "string" || !N.text.trim()) return;
+  $("#notice").append(
+    el("div", { class: "wrap" }, [
+      el("aside", { class: "notice", role: "note" }, [
+        N.eyebrow ? el("span", { class: "notice-tag", text: N.eyebrow }) : null,
+        el("p", { class: "notice-txt", text: N.text }),
+      ]),
+    ])
+  );
+}
+
 /* =========================================================== HERO + COPY */
 
 function renderHero(C) {
@@ -410,6 +436,7 @@ function reveal() {
   document.title = C.site?.title || document.title;
 
   renderSections(C);
+  renderNotice(C);
   renderHero(C);
   renderFeatures(C);
   renderShots(C);

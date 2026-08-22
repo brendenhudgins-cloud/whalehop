@@ -228,6 +228,29 @@ code{font:inherit;color:var(--gold);font-size:.92em}
 @keyframes blink{to{opacity:.15}}
 @media (prefers-reduced-motion:reduce){ .blink{animation:none} }
 
+/* ============================================================ NOTICE
+   Sits between the hero and the summary. The slot is an empty div in the markup
+   and gets no padding of its own, so a notice that is switched off leaves no gap
+   — the summary's own top padding simply closes up behind it.
+
+   Teal, because teal is this palette's attention colour and gold is its value
+   colour, and the two never trade. Marked `role="note"` rather than `alert`: it
+   is an aside a reader may care about, not something demanding response. */
+.notice-slot:empty{display:none}
+.notice{
+  margin-top:clamp(40px,7vw,84px);
+  display:flex; align-items:baseline; gap:14px; flex-wrap:wrap;
+  background:linear-gradient(90deg,rgba(55,214,197,.10),rgba(55,214,197,.02) 70%,transparent);
+  border:1px solid var(--line);
+  border-left:2px solid var(--teal);
+  padding:14px 18px;
+}
+.notice-tag{
+  color:var(--teal); letter-spacing:.28em; font-size:10px;
+  text-transform:uppercase; flex:0 0 auto;
+}
+.notice-txt{color:var(--ink);font-size:13.5px;line-height:1.6;max-width:70ch}
+
 /* ============================================================ SECTIONS */
 .sec{padding:clamp(72px,11vw,148px) 0;position:relative}
 
