@@ -554,13 +554,25 @@ code{font:inherit;color:var(--gold);font-size:.92em}
 }
 
 /* ---------- PLATFORMS + FEATURES ----------
-   Two columns that collapse to one on a phone. The rule above them is the same hairline
-   the facts row uses, so the block reads as a continuation of the summary rather than as
-   a new section wanting its own attention. */
+   Art on the left, box copy on the right, the way a store page reads. The rule above the
+   block is the same hairline the facts row uses, so it continues the summary rather than
+   announcing itself as a new section.
+
+   The image is given a MAX width in ch rather than a percentage: the columns beside it are
+   short lists, and a percentage split leaves the art enormous next to five words. */
 .spec{
-  display:flex; flex-wrap:wrap; gap:34px 72px;
+  display:flex; flex-wrap:wrap; gap:34px 48px; align-items:flex-start;
   margin-top:34px; padding-top:26px; border-top:1px solid var(--line);
 }
+.spec-art{margin:0; flex:1 1 300px; max-width:420px}
+.spec-art img{
+  display:block; width:100%; height:auto;
+  border:1px solid var(--line);
+}
+.spec-art figcaption{
+  margin-top:9px; font-size:11.5px; color:var(--faint); line-height:1.5;
+}
+.spec-cols{display:flex; flex-wrap:wrap; gap:30px 64px; flex:1 1 260px}
 .spec-label{
   margin:0 0 12px; font-size:11px; letter-spacing:.22em; font-weight:600;
   color:var(--teal); text-transform:uppercase;
@@ -573,4 +585,4 @@ code{font:inherit;color:var(--gold);font-size:.92em}
 /* The same marker the pitch list uses, in gold rather than teal. Written as a literal
    glyph: a CSS escape sent through this toolchain arrived as an octal control byte. */
 .spec-list li::before{content:"▶"; color:var(--gold); font-size:.72em; line-height:1.5}
-@media (max-width:620px){ .spec{gap:26px 40px} }
+@media (max-width:620px){ .spec{gap:26px 40px} .spec-art{max-width:none} }

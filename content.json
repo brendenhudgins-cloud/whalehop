@@ -222,6 +222,10 @@
   ],
   "spec": {
     "enabled": true,
+    "promo": {
+      "file": "promo-desk.jpg",
+      "alt": "A beige CRT monitor and a clear-purple handheld on a wooden desk, both showing Whale Hop's sunset title screen, with a whale breaching outside the window behind them."
+    },
     "platforms": {
       "label": "PLATFORMS",
       "items": [

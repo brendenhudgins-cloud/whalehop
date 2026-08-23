@@ -291,14 +291,32 @@ function renderSpec(C) {
   if (!host) return;
   const S = C.spec || {};
   const cols = [S.platforms, S.modes].filter((c) => c && Array.isArray(c.items) && c.items.length);
-  if (S.enabled === false || !cols.length) { host.remove(); return; }
+  if (S.enabled === false || (!cols.length && !S.promo)) { host.remove(); return; }
 
+  /* THE PROMO IMAGE IS NOT A SCREENSHOT, and that is the one thing this must not blur. The
+     gallery's standfirst promises every frame in it is a real frame of the running game; this
+     is composed art with a whale breaching outside a window, so it lives here beside the box
+     copy instead, where no such promise is being made. It is deliberately NOT added to
+     `shots`. Alt text is required rather than optional: a decorative-looking image that is
+     actually the only picture of the game on two devices is worth describing. */
+  if (S.promo && S.promo.file) {
+    host.append(el("figure", { class: "spec-art" }, [
+      el("img", {
+        src: `img/${S.promo.file}`, alt: S.promo.alt || "",
+        loading: "lazy", decoding: "async",
+      }),
+      S.promo.caption ? el("figcaption", { text: S.promo.caption }) : null,
+    ]));
+  }
+
+  const list = el("div", { class: "spec-cols" });
   for (const col of cols) {
-    host.append(el("div", { class: "spec-col" }, [
+    list.append(el("div", { class: "spec-col" }, [
       el("p", { class: "spec-label", text: col.label || "" }),
       el("ul", { class: "spec-list" }, col.items.map((it) => el("li", { text: String(it) }))),
     ]));
   }
+  if (cols.length) host.append(list);
 }
 
 /* The whale beside the summary. The SVG is GENERATED from the game source by
