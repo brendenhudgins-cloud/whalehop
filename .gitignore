@@ -26,3 +26,7 @@ bsky/
 # writes feeds.json -- so it is also the one with nothing to give away.
 tools/*
 !tools/feeds.mjs
+
+# Generated social media: frames, clips and posters captured from the game. Regenerable from
+# tools/capture-media.mjs, and this repo is public, so there is no reason to carry them here.
+media/
