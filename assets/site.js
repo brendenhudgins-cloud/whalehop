@@ -28,7 +28,8 @@ const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
 /* Build DOM rather than assembling HTML strings: every value below comes from a
    third-party feed, and `textContent` cannot be talked into executing anything.
-   The one exception is the SVG favicon in the head, which is static. */
+   The favicon is static image files (the whale head, same art as the Bluesky
+   avatar) linked from the head. */
 function el(tag, props = {}, kids = []) {
   const n = document.createElement(tag);
   for (const [k, v] of Object.entries(props)) {
