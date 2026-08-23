@@ -15,9 +15,13 @@
 <meta property="og:url" content="https://whalehop.net/">
 <meta property="og:title" content="WHALE HOP — Lassen Seas">
 <meta property="og:description" content="You are a whale with 150 seconds. Dive for speed, breach, flip, and land nose-first to keep the points. Climb from the trench floor to the top of the sky.">
-<meta property="og:image" content="https://whalehop.net/img/title.jpg">
-<meta property="og:image:width" content="1600">
-<meta property="og:image:height" content="900">
+<!-- promo-card.jpg is the 1.91:1 crop, which is the shape every link preview wants; the
+     square source would be letterboxed or centre-cropped by each scraper differently.
+     THE WIDTH AND HEIGHT ARE PART OF THE SWAP: they were 1600x900 for title.jpg, and a
+     scraper that trusts them over the file lays out the wrong box. -->
+<meta property="og:image" content="https://whalehop.net/img/promo-card.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="628">
 <meta name="twitter:card" content="summary_large_image">
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23050415'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' fill='%23ffd166' font-family='monospace'%3E%E2%89%88%3C/text%3E%3C/svg%3E">

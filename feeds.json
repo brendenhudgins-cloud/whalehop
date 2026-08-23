@@ -1,18 +1,43 @@
 {
-  "generated": "2026-08-21T14:50:28.353Z",
+  "generated": "2026-08-23T16:22:49.083Z",
   "sources": {
     "bluesky": {
       "enabled": true,
-      "fetched": "2026-08-21T14:50:28.764Z",
+      "fetched": "2026-08-23T16:22:49.198Z",
       "profile": {
         "handle": "el3v8or.bsky.social",
         "displayName": "el3v8or",
         "avatar": "https://cdn.bsky.app/img/avatar/plain/did:plc:v3pb7qepaw4qmowxzp4otlk3/bafkreidiyd2kubkms7tpji4voe2gfrda6i6uylzkzawhqa4wmoy23jam7i",
-        "description": "youtube.com/@el3v8or twitch.tv/el3v8or music.el3v8or.com/el3v8or #americanoddity",
-        "followers": 267,
-        "posts": 637
+        "description": "youtube.com/@el3v8or twitch.tv/el3v8or music.el3v8or.com/el3v8or #americanoddity whalehop.net",
+        "followers": 266,
+        "posts": 640
       },
       "items": [
+        {
+          "id": "at://did:plc:v3pb7qepaw4qmowxzp4otlk3/app.bsky.feed.post/3mtppd6wd3s2a",
+          "url": "https://bsky.app/profile/el3v8or.bsky.social/post/3mtppd6wd3s2a",
+          "text": "Circus de Paris was a good time!",
+          "date": "2026-08-23T02:06:45.321Z",
+          "likes": 0,
+          "reposts": 0,
+          "replies": 0,
+          "images": [],
+          "link": null
+        },
+        {
+          "id": "at://did:plc:v3pb7qepaw4qmowxzp4otlk3/app.bsky.feed.post/3mtn246vnoc2y",
+          "url": "https://bsky.app/profile/el3v8or.bsky.social/post/3mtn246vnoc2y",
+          "text": "The whale hops, it just... hops. www.youtube.com/shorts/cta2P...",
+          "date": "2026-08-22T00:41:42.374Z",
+          "likes": 1,
+          "reposts": 1,
+          "replies": 0,
+          "images": [],
+          "link": {
+            "url": "https://www.youtube.com/shorts/cta2PQQWZz4",
+            "title": "Whale Hop - It Did a Flip"
+          }
+        },
         {
           "id": "at://did:plc:v3pb7qepaw4qmowxzp4otlk3/app.bsky.feed.post/3msr6kfrgtk2v",
           "url": "https://bsky.app/profile/el3v8or.bsky.social/post/3msr6kfrgtk2v",
@@ -66,38 +91,27 @@
             }
           ],
           "link": null
-        },
-        {
-          "id": "at://did:plc:v3pb7qepaw4qmowxzp4otlk3/app.bsky.feed.post/3mlelw4nwzk2g",
-          "url": "https://bsky.app/profile/el3v8or.bsky.social/post/3mlelw4nwzk2g",
-          "text": "👄",
-          "date": "2026-05-08T20:44:55.352Z",
-          "likes": 2,
-          "reposts": 0,
-          "replies": 0,
-          "images": [
-            {
-              "thumb": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:v3pb7qepaw4qmowxzp4otlk3/bafkreifd3v3ioed26ddn5entfmgnmfhcm65msvfackuv2ev57z4y2d3ine",
-              "alt": ""
-            },
-            {
-              "thumb": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:v3pb7qepaw4qmowxzp4otlk3/bafkreige5zuhcxsjwc6wvnmielfzpr3mlvninec4rflar42rsarmsaudp4",
-              "alt": ""
-            }
-          ],
-          "link": null
         }
       ]
     },
     "youtube": {
       "enabled": true,
-      "fetched": "2026-08-21T14:50:29.000Z",
+      "fetched": "2026-08-23T16:22:49.373Z",
       "profile": {
         "channelId": "UCt_Mt8vBqPScvh1Drg5I5Ag",
         "title": "el3v8or",
         "url": "https://www.youtube.com/@el3v8or"
       },
       "items": [
+        {
+          "id": "cta2PQQWZz4",
+          "url": "https://www.youtube.com/watch?v=cta2PQQWZz4",
+          "title": "Whale Hop - It Did a Flip",
+          "date": "2026-08-22T00:27:37+00:00",
+          "thumb": "https://i4.ytimg.com/vi/cta2PQQWZz4/hqdefault.jpg",
+          "description": "#gamedev #gameplay #trailer #ai #shorts",
+          "views": 58
+        },
         {
           "id": "FoBaZqzkQcc",
           "url": "https://www.youtube.com/watch?v=FoBaZqzkQcc",
@@ -124,21 +138,12 @@
           "thumb": "https://i2.ytimg.com/vi/M_FviTeezFI/hqdefault.jpg",
           "description": "i fixed it",
           "views": 152
-        },
-        {
-          "id": "rp5bGQUcM-U",
-          "url": "https://www.youtube.com/watch?v=rp5bGQUcM-U",
-          "title": "The Time Mason got Double Brain Washed",
-          "date": "2025-05-11T16:10:56+00:00",
-          "thumb": "https://i3.ytimg.com/vi/rp5bGQUcM-U/hqdefault.jpg",
-          "description": "Mason from Call of Duty Black Ops really went out there and got brain washed by 2 different people... #callofduty #gaming #twitch Playing through the entire CoD series live on Twitch Saturdays at 11am EDT - follow me on Twitch! 🔴 For more:",
-          "views": 889
         }
       ]
     },
     "music": {
       "enabled": true,
-      "fetched": "2026-08-21T14:50:29.482Z",
+      "fetched": "2026-08-23T16:22:49.854Z",
       "profile": {
         "username": "el3v8or",
         "displayName": "el3v8or",

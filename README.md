@@ -5,7 +5,15 @@ dependencies. Deployed to GitHub Pages by `.github/workflows/pages.yml`.
 
 **The game itself is not in this repo.** It is a single-file canvas game in a separate private
 repo; only the site lives here. The screenshots under `img/` are real frames of the running
-build, captured by `tools/shots.mjs`.
+build, captured by `tools/shots.mjs` — with two exceptions, `promo-desk.jpg` and
+`promo-card.jpg`, which are composed promo art. Those two are deliberately kept OUT of the
+gallery, because the gallery tells the reader every frame in it is a screenshot.
+
+**The tools are not in this repo either, and that is on purpose.** This repo is public and
+everything in it is served from whalehop.net; the capture and export tools drive
+`whale-hop.html` by name, so publishing them publishes the shape of a private build. They live
+on the developer machine, still under `tools/`, and every command below assumes you are there.
+`.gitignore` refuses to stage them, verified by trying.
 
 ---
 
@@ -43,14 +51,20 @@ them have to be ones a reader already owns. Define a term the first time it appe
 | `content.json` | **you, by hand** | everything the page says |
 | `feeds.json` | `tools/feeds.mjs` | the cached Bluesky / YouTube / music items |
 
-`feeds.mjs` only ever *reads* `content.json`. That split is why a refresh can run every six
-hours without any chance of reverting your edits.
+`feeds.mjs` only ever *reads* `content.json`. That split is why a refresh can never revert
+your edits, whoever runs it and whenever.
 
 ---
 
 ## The feeds
 
-Three sources, refreshed every six hours by the deploy workflow and on every push.
+Three sources, refreshed **locally** by `tools/feeds.mjs` and committed as `feeds.json`.
+
+This used to run in the deploy job every six hours. It does not any more: the tools are
+not in this repo (it is public and they describe a private build), so the fetch step went
+with them. **The feeds are now exactly as fresh as the last local run** — which means the
+"updated Nh ago" line on the page is a claim about when someone last ran the script, and
+it drifts if nobody does. Run it before a push you care about.
 
 | source | endpoint | `Access-Control-Allow-Origin` |
 |---|---|---|

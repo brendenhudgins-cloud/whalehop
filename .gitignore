@@ -20,12 +20,12 @@ bsky/
 # names -- and publishing them publishes the shape of a private build. They stay on disk and
 # keep working; they are simply not tracked here.
 #
-# feeds.mjs IS THE ONE EXCEPTION and it is a dependency, not an oversight: the Pages workflow
-# runs `node tools/feeds.mjs` on GitHub's runner, so removing it from the repo stops the
-# six-hourly feed refresh. It touches no game internals -- it fetches three public APIs and
-# writes feeds.json -- so it is also the one with nothing to give away.
-tools/*
-!tools/feeds.mjs
+# NO EXCEPTIONS ANY MORE. feeds.mjs was kept for a while because the Pages workflow ran it on
+# GitHub's runner, and removing it would have stopped the six-hourly refresh. That step is
+# gone: the refresh happens locally and feeds.json is committed. The trade is deliberate --
+# the feeds are now as fresh as the last local run rather than always under six hours old --
+# and it buys a repo with none of the tooling in it.
+tools/
 
 # Generated social media: frames, clips and posters captured from the game. Regenerable from
 # tools/capture-media.mjs, and this repo is public, so there is no reason to carry them here.

@@ -1,5 +1,10 @@
 # Deploy whalehop.net to GitHub Pages, refreshing the three feeds on the way out.
 #
+# HISTORICAL NOTE, kept because it explains the shape of this file: the feed fetch used to
+# run HERE, inside the deploy job, and the paragraph below is why it was not a separate
+# workflow. It now runs on a developer machine instead -- see the "Refresh feeds" gap below --
+# because tools/feeds.mjs was removed from this public repo along with the rest of the tools.
+#
 # ONE WORKFLOW, NOT TWO, AND THAT IS THE WHOLE TRICK. The obvious split — a "refresh feeds"
 # job that commits feeds.json, and a separate "deploy" job triggered by that commit — does
 # not work: a push made with the built-in GITHUB_TOKEN deliberately does NOT trigger further
@@ -45,13 +50,16 @@ jobs:
         with:
           node-version: "20"   # global fetch is built in from 18
 
-      - name: Refresh feeds
-        # No npm install: tools/feeds.mjs has no dependencies.
-        # continue-on-error because a dead third-party API must not block a deploy — the
-        # script carries each source's last good answer forward, so the worst case is a
-        # slightly stale panel rather than no site.
-        continue-on-error: true
-        run: node tools/feeds.mjs
+      # THE FEEDS ARE REFRESHED LOCALLY NOW, not here. tools/feeds.mjs is no longer in this
+      # repo: the tools drive and describe a private build, and this repo is public, so they
+      # were pulled out and the fetch step went with them. What ships is whatever feeds.json
+      # was last committed.
+      #
+      # THE COST IS REAL AND WORTH STATING. Feeds used to refresh every six hours whether or
+      # not anyone touched the site; now they are exactly as fresh as the last local run. The
+      # "updated Nh ago" line on the page is therefore a claim about when the fetch ran, and
+      # it will drift if nobody runs one. Run `node tools/feeds.mjs` (from wherever the tools
+      # now live) and commit feeds.json.
 
       - name: Show what shipped
         run: |
