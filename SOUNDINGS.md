@@ -20,9 +20,13 @@ interesting* but **would Brenden mind a stranger knowing it today.**
 - A level, biome or set piece that is not already on the site. The site names THE RISING,
   SPUN SUGAR, and the nineteen bands. Everything in `LEVEL IDENTITIES/` that is not one of
   those is unreleased.
-- Multiplayer, ghosts, the relay, lobbies, Steam, release dates, or anything from
-  `PLAN-multiplayer.md`. The site says "Steam — coming soon" and that is the entire public
-  position.
+- Ghosts, the relay, lobbies, Steam, release dates, or anything from `PLAN-multiplayer.md`.
+  **The word "Multiplayer" is now public and nothing behind it is** — the site lists it, with
+  Time Trials and Roguelite, under FEATURES, alongside PC and AYN Thor. That is the whole of
+  what a stranger may know: the feature exists and the platforms are named. How it works, what
+  state it is in, when any of it lands, and every noun in the plan are still off limits, and a
+  sounding that says "multiplayer" is almost certainly reaching for one of them. On dates the
+  position is unchanged: the site says "Steam — coming soon" and that is all it says.
 - Art that has not shipped — anything in `IMPORTED ART SVGS/` or `NEW-*-prompts.md` that is
   not visibly in a screenshot on the site already.
 - Numbers that read as a roadmap: how many of a thing are planned, what is left to do, when.

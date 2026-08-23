@@ -273,6 +273,34 @@ function renderHero(C) {
   }
 }
 
+/* =========================================================== PLATFORMS + FEATURES
+
+   The box copy: what it runs on and what is in it. Two lists, one shape, so a third
+   column costs a key rather than a layout.
+
+   THIS IS A CLAIM ABOUT A PRODUCT, which the rest of this file's content is not.
+   A screenshot can be re-taken and a blurb reworded, but "Multiplayer" on a promo page
+   is a promise a reader holds you to, and the site had said nothing at all about scope
+   before this. That is why the whole block is behind `enabled` and why an empty list
+   removes its own column: the way to walk one back is to delete a string, not to edit
+   markup under pressure.
+
+   Removes the section rather than emptying it, like the trailer and the soundings do. */
+function renderSpec(C) {
+  const host = $("#spec");
+  if (!host) return;
+  const S = C.spec || {};
+  const cols = [S.platforms, S.modes].filter((c) => c && Array.isArray(c.items) && c.items.length);
+  if (S.enabled === false || !cols.length) { host.remove(); return; }
+
+  for (const col of cols) {
+    host.append(el("div", { class: "spec-col" }, [
+      el("p", { class: "spec-label", text: col.label || "" }),
+      el("ul", { class: "spec-list" }, col.items.map((it) => el("li", { text: String(it) }))),
+    ]));
+  }
+}
+
 /* The whale beside the summary. The SVG is GENERATED from the game source by
    tools/whale-svg.mjs — same idea as the screenshots being real frames: the site
    shows the whale the game paints, in the shades skinShades() resolves, rather
@@ -598,6 +626,7 @@ function reveal() {
   renderSoundings(C, S);
   renderHero(C);
   renderWhale(C);
+  renderSpec(C);
   renderFeatures(C);
   renderShots(C);
   renderFeeds(C, F);

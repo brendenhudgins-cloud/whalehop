@@ -552,3 +552,25 @@ code{font:inherit;color:var(--gold);font-size:.92em}
   .facts{grid-template-columns:1fr 1fr}
   .hero{min-height:92svh}
 }
+
+/* ---------- PLATFORMS + FEATURES ----------
+   Two columns that collapse to one on a phone. The rule above them is the same hairline
+   the facts row uses, so the block reads as a continuation of the summary rather than as
+   a new section wanting its own attention. */
+.spec{
+  display:flex; flex-wrap:wrap; gap:34px 72px;
+  margin-top:34px; padding-top:26px; border-top:1px solid var(--line);
+}
+.spec-label{
+  margin:0 0 12px; font-size:11px; letter-spacing:.22em; font-weight:600;
+  color:var(--teal); text-transform:uppercase;
+}
+.spec-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:7px}
+.spec-list li{
+  color:var(--ink); font-size:14.5px; letter-spacing:.02em;
+  display:flex; align-items:baseline; gap:10px;
+}
+/* The same marker the pitch list uses, in gold rather than teal. Written as a literal
+   glyph: a CSS escape sent through this toolchain arrived as an octal control byte. */
+.spec-list li::before{content:"▶"; color:var(--gold); font-size:.72em; line-height:1.5}
+@media (max-width:620px){ .spec{gap:26px 40px} }

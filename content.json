@@ -34,14 +34,12 @@
     "SAME description — link scrapers do not run JS, so they cannot read either from here. If",
     "the site moves or the description changes, change both."
   ],
-
   "site": {
     "url": "https://whalehop.net/",
     "title": "WHALE HOP — Lassen Seas",
     "description": "You are a whale with 150 seconds. Dive for speed, breach, flip, and land nose-first to keep the points. Climb from the trench floor to the top of the sky.",
     "author": "el3v8or"
   },
-
   "game": {
     "name": "WHALE HOP",
     "subtitle": "LASSEN SEAS",
@@ -53,12 +51,15 @@
       "Rails to grind, updrafts to ride, jet streams, anchor-stones that fling you, and rings that each buy you another second and a half. Speed is how you buy altitude, and everything good is higher up."
     ]
   },
-
   "sections": {
     "skip": "Skip to content",
     "heroFoot": "THE CLIMB STARTS AT THE WATERLINE",
-    "what": { "eyebrow": "WHAT IT IS" },
-    "features": { "eyebrow": "HOW IT PLAYS" },
+    "what": {
+      "eyebrow": "WHAT IT IS"
+    },
+    "features": {
+      "eyebrow": "HOW IT PLAYS"
+    },
     "gallery": {
       "eyebrow": "THE CLIMB",
       "heading": "Nineteen bands, bottom to top",
@@ -69,13 +70,11 @@
       "heading": "Everything el3v8or is making"
     }
   },
-
   "notice": {
     "enabled": true,
     "eyebrow": "EARLY",
     "text": "Congrats! You are here before anything is ready to show! Consider yourself lucky!"
   },
-
   "trailer": {
     "enabled": true,
     "eyebrow": "THE TRAILER",
@@ -86,7 +85,6 @@
     "band": "GULL LINE",
     "alt": 120
   },
-
   "whale": {
     "enabled": true,
     "file": "img/whale-character.svg",
@@ -96,7 +94,6 @@
     "caption": "CHARACTER",
     "sub": "one of eight hulls · the colour is yours to pick"
   },
-
   "soundings": {
     "enabled": true,
     "eyebrow": "SOUNDINGS",
@@ -104,7 +101,6 @@
     "sub": "Short reports from somebody who is down there most days, half about the game and half about the actual ocean. A sounding is what you call a depth taken by dropping a weighted line — you learn how deep it is, not what lives there.",
     "limit": 8
   },
-
   "cta": {
     "steam": {
       "url": null,
@@ -112,9 +108,11 @@
       "soonLabel": "STEAM — COMING SOON",
       "note": "There is no Steam page yet — it is still being built in the open. The devlog on Bluesky is where the date will turn up first."
     },
-    "secondary": { "label": "SEE IT MOVING", "href": "#trailer" }
+    "secondary": {
+      "label": "SEE IT MOVING",
+      "href": "#trailer"
+    }
   },
-
   "features": [
     {
       "eyebrow": "THE RULE",
@@ -153,26 +151,93 @@
       "accent": "teal"
     }
   ],
-
   "shots": [
-    { "file": "rising.jpg",     "band": "THE RISING · −85m",   "caption": "A built level breaking the surface. It starts on the trench floor among black-smoker vents and asks you for 10,000m." },
-    { "file": "sunset.jpg",     "band": "SUNSET BAND · 1,100m","caption": "Swim through a shoal and it falls in behind you. The fish hold your wake and copy every move you make, one at a time, right down the line — and they follow you out of the water." },
-    { "file": "veil.jpg",       "band": "LASSEN VEIL · 4,200m","caption": "The last altitude with weather in it. Above here the clouds run out and the sky starts going dark." },
-    { "file": "orbit.jpg",      "band": "LOW ORBIT · 18,000m", "caption": "No horizon left to steer by. The strip down the left edge is the height map, and it is the only thing still telling you which way is up." },
-    { "file": "stars.jpg",      "band": "SEA OF STARS · 30,000m","caption": "The ringed planet never appears below 15,000m. Seeing it at all means you got here." },
-    { "file": "greatwhale.jpg", "band": "THE GREAT WHALE · 250,000m","caption": "A quarter of a million metres up, the sky goes faintly purple and the dark starts eating holes in the starfield." },
-    { "file": "arcade.jpg",     "band": "THE ARCADE · 340,000m","caption": "Pure black, six loud colours and bumpers in every direction. The house is open, and it will take the whole run total off you." }
+    {
+      "file": "rising.jpg",
+      "band": "THE RISING · −85m",
+      "caption": "A built level breaking the surface. It starts on the trench floor among black-smoker vents and asks you for 10,000m."
+    },
+    {
+      "file": "sunset.jpg",
+      "band": "SUNSET BAND · 1,100m",
+      "caption": "Swim through a shoal and it falls in behind you. The fish hold your wake and copy every move you make, one at a time, right down the line — and they follow you out of the water."
+    },
+    {
+      "file": "veil.jpg",
+      "band": "LASSEN VEIL · 4,200m",
+      "caption": "The last altitude with weather in it. Above here the clouds run out and the sky starts going dark."
+    },
+    {
+      "file": "orbit.jpg",
+      "band": "LOW ORBIT · 18,000m",
+      "caption": "No horizon left to steer by. The strip down the left edge is the height map, and it is the only thing still telling you which way is up."
+    },
+    {
+      "file": "stars.jpg",
+      "band": "SEA OF STARS · 30,000m",
+      "caption": "The ringed planet never appears below 15,000m. Seeing it at all means you got here."
+    },
+    {
+      "file": "greatwhale.jpg",
+      "band": "THE GREAT WHALE · 250,000m",
+      "caption": "A quarter of a million metres up, the sky goes faintly purple and the dark starts eating holes in the starfield."
+    },
+    {
+      "file": "arcade.jpg",
+      "band": "THE ARCADE · 340,000m",
+      "caption": "Pure black, six loud colours and bumpers in every direction. The house is open, and it will take the whole run total off you."
+    }
   ],
-
   "facts": [
-    { "n": "150s", "label": "a run",          "sub": "and every ring you pass buys 1.5 more" },
-    { "n": "700km","label": "top of the sky", "sub": "the trench floor is 3.6km the other way" },
-    { "n": "19",   "label": "named bands",    "sub": "each with its own colour and its own weather" },
-    { "n": "8",    "label": "whales",         "sub": "killer whale, humpback, narwhal, whale shark and four more" },
-    { "n": "30",   "label": "fortune cards",  "sub": "dealt after a run, spent on the next one" },
-    { "n": "1",    "label": "file",           "sub": "no installer, no launcher, no patch day" }
+    {
+      "n": "150s",
+      "label": "a run",
+      "sub": "and every ring you pass buys 1.5 more"
+    },
+    {
+      "n": "700km",
+      "label": "top of the sky",
+      "sub": "the trench floor is 3.6km the other way"
+    },
+    {
+      "n": "19",
+      "label": "named bands",
+      "sub": "each with its own colour and its own weather"
+    },
+    {
+      "n": "8",
+      "label": "whales",
+      "sub": "killer whale, humpback, narwhal, whale shark and four more"
+    },
+    {
+      "n": "30",
+      "label": "fortune cards",
+      "sub": "dealt after a run, spent on the next one"
+    },
+    {
+      "n": "1",
+      "label": "file",
+      "sub": "no installer, no launcher, no patch day"
+    }
   ],
-
+  "spec": {
+    "enabled": true,
+    "platforms": {
+      "label": "PLATFORMS",
+      "items": [
+        "PC",
+        "AYN Thor"
+      ]
+    },
+    "modes": {
+      "label": "FEATURES",
+      "items": [
+        "Multiplayer",
+        "Time Trials",
+        "Roguelite"
+      ]
+    }
+  },
   "social": {
     "bluesky": {
       "enabled": true,
@@ -208,9 +273,12 @@
       "live": false
     }
   },
-
-  "feedLimits": { "bluesky": 6, "youtube": 4, "music": 6, "albums": 2 },
-
+  "feedLimits": {
+    "bluesky": 6,
+    "youtube": 4,
+    "music": 6,
+    "albums": 2
+  },
   "footer": {
     "line": "WHALE HOP — Lassen Seas · made by el3v8or",
     "colophon": "Set in IBM Plex Mono. Screenshots captured from the real build by tools/shots.mjs; feeds refreshed by tools/feeds.mjs."

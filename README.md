@@ -18,6 +18,7 @@ and feed limit is in that one file. Nothing else needs touching.
 "cta": { "steam": { "url": null, … } }   // set url → the button goes live
 "sections": { "features": { "eyebrow": … } }    // every section eyebrow, heading and subhead
 "shots": [ … ]                            // first entry spans full width
+"spec": { "platforms": {…}, "modes": {…} }      // the PLATFORMS / FEATURES strip
 "feedLimits": { "bluesky": 6, … }
 "social": { "youtube": { "enabled": false } }   // drops the panel and stops fetching it
 ```
