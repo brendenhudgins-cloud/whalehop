@@ -39,9 +39,31 @@ const val = (f) => { const i = argv.indexOf(f); return i > -1 ? argv[i + 1] : nu
 const LIVE = has("--post");
 const ALL = has("--all");
 const DATE = val("--date");
+const CHECK = has("--check");   // prove the credential works; post nothing
 
 const HANDLE = process.env.BSKY_HANDLE || "whale-hop-dev.bsky.social";
-const PASSWORD = process.env.BSKY_APP_PASSWORD || null;
+
+// THE CREDENTIAL LIVES OUTSIDE THIS REPO, and the path is not a preference.
+// This repo is PUBLIC and every file in it is deployed to whalehop.net, so a password stored
+// anywhere under it would be readable over the web the moment Pages ran -- and would stay in
+// git history after any later deletion. `~/.whalehop/` is on the same machine, is never
+// walked by git, and cannot be swept up by a stray `git add .`.
+// Environment first so a CI or a different machine can override without touching the file.
+const CRED_FILE = path.join(
+  process.env.USERPROFILE || process.env.HOME || "", ".whalehop", "bsky-app-password.txt"
+);
+function readPassword() {
+  if (process.env.BSKY_APP_PASSWORD) return process.env.BSKY_APP_PASSWORD.trim();
+  try {
+    // Tolerate a file that is a sentence rather than a bare token: the first thing shaped
+    // like an app password wins. Pasting the whole "heres the app password xxxx-..." line
+    // is exactly what happens in practice.
+    const raw = fs.readFileSync(CRED_FILE, "utf8");
+    const m = raw.match(/\b[a-z0-9]{4}(?:-[a-z0-9]{4}){3}\b/i);
+    return m ? m[0] : raw.trim() || null;
+  } catch { return null; }
+}
+const PASSWORD = readPassword();
 
 const PUBLIC = "https://public.api.bsky.app/xrpc";
 const PDS = "https://bsky.social/xrpc";
@@ -80,10 +102,12 @@ async function alreadyPosted() {
 async function login() {
   if (!PASSWORD) {
     throw new Error(
-      "BSKY_APP_PASSWORD is not set.\n" +
-      "  Create one at Bluesky > Settings > App Passwords (not the account password), then:\n" +
-      `    setx BSKY_APP_PASSWORD "the-app-password"\n` +
-      "  and open a NEW shell -- setx only affects processes started after it."
+      "No app password found. Looked in, in order:\n" +
+      "  1. $BSKY_APP_PASSWORD\n" +
+      `  2. ${CRED_FILE}\n` +
+      "Create one at Bluesky > Settings > App Passwords (NOT the account password) and write\n" +
+      "it to the file above, or set the environment variable. Never put it in this repo --\n" +
+      "this repo is public and everything in it is served from whalehop.net."
     );
   }
   const s = await getJSON(`${PDS}/com.atproto.server.createSession`, {
@@ -123,6 +147,16 @@ async function post(text, session) {
 // scheduled caller checking the exit code would read every good run as a failure. Set
 // process.exitCode and return instead; the process then ends once the sockets drain.
 async function main() {
+// --check authenticates and stops. Worth having as its own mode: it separates "the password
+// is wrong" from "the post was rejected", which otherwise both surface at the same moment,
+// on the run that was meant to publish something.
+if (CHECK) {
+  const s = await login();
+  console.log(`credential OK  ${HANDLE}  ${s.did}`);
+  console.log(`source: ${process.env.BSKY_APP_PASSWORD ? "$BSKY_APP_PASSWORD" : CRED_FILE}`);
+  return;
+}
+
 const data = JSON.parse(fs.readFileSync(path.join(ROOT, "soundings.json"), "utf8"));
 const entries = (data.entries || []).filter((e) => e && typeof e.text === "string" && e.text.trim());
 if (!entries.length) { console.error("soundings.json has no entries"); process.exitCode = 2; return; }

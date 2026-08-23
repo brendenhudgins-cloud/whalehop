@@ -1,2 +1,16 @@
 node_modules/
 .DS_Store
+
+# NOTHING SECRET LIVES IN THIS REPO. It is public and every file in it is served from
+# whalehop.net, so a committed credential is both world-readable and permanent in history.
+# The Bluesky app password lives in ~/.whalehop/bsky-app-password.txt, outside the repo.
+# These patterns are a backstop for the day someone drops one in here by habit.
+*.pw
+*.key
+*.pem
+.env
+.env.*
+secrets/
+bsky/
+*password*.txt
+*app-password*
