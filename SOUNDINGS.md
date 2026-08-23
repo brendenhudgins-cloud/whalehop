@@ -6,6 +6,12 @@ Written by a scheduled run against the game repo; published to `soundings.json`.
 **A sounding is a depth measurement taken by dropping a weighted line.** That is the tone: you
 are reporting what you felt down there, not publishing the survey.
 
+**Each sounding is also cross-posted to Bluesky** (@whalehop.net) by the same run that writes
+it — since 2026-08-23. That changes nothing about the bar: the site was always public, so a
+sounding was always a claim in front of strangers. It does mean a sounding is now a POST as
+well as a log line — same words in a faster room — and the posting tool, not the writer,
+decides tags (gamedev tags on `deep`, none on `wild`).
+
 ---
 
 ## The one rule that matters
