@@ -14,3 +14,15 @@ secrets/
 bsky/
 *password*.txt
 *app-password*
+
+# THE TOOLS ARE NOT PUBLIC. This repo is public; the capture and export tools drive
+# whale-hop.html by name -- App.startRun, App.game, the BANDS table, scene altitudes, level
+# names -- and publishing them publishes the shape of a private build. They stay on disk and
+# keep working; they are simply not tracked here.
+#
+# feeds.mjs IS THE ONE EXCEPTION and it is a dependency, not an oversight: the Pages workflow
+# runs `node tools/feeds.mjs` on GitHub's runner, so removing it from the repo stops the
+# six-hourly feed refresh. It touches no game internals -- it fetches three public APIs and
+# writes feeds.json -- so it is also the one with nothing to give away.
+tools/*
+!tools/feeds.mjs
