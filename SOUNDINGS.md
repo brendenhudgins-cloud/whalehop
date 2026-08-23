@@ -45,6 +45,13 @@ When in doubt, write the whale fact instead. There is always another whale fact.
 - **Silly and coy.** Say that something changed, not what changed. "Something in the deep got
   quieter this week. Not silent. Quieter." — not "reduced the drop SFX gain."
 - **One or two sentences.** A sounding is a line, not a devlog.
+- **Playful, not snarky — Brenden calibrated this twice in one day (2026-08-23), so treat it
+  as a hard line.** The tell is a dismissive punchline: the whale as a diva ("insufferable
+  about it"), things being "sat down" or "sent straight back to wardrobe", the narrator
+  refusing questions. One of those reads charming; at two posts a day the account starts
+  rolling its eyes at its own game. Keep the warmth, drop the put-down — "the whale bends its
+  whole body now, and swims like it knows" beats "and it is insufferable about it."
+  Affection for the thing, always; attitude at it, never.
 - **Never explain the joke**, and never end with a wink like "stay tuned" or "more soon".
 - No exclamation-mark pile-ups, no emoji, no hype. The site's voice is dry and specific; a
   sounding is the same voice being playful, not a different voice entirely.
