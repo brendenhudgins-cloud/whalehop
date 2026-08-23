@@ -388,8 +388,12 @@ function renderShots(C) {
 function itemBluesky(p) {
   const href = safeURL(p.url);
   if (!href) return null;
+  /* `by` is set only when the panel merges more than one account. The display name drops
+     the .bsky.social suffix -- "el3v8or" and "whalehop.net" -- because the full handle is
+     noise at this size and the link already carries it. */
+  const who = p.by ? " · @" + String(p.by).replace(/\.bsky\.social$/, "") : "";
   const kids = [
-    el("span", { class: "when", text: ago(p.date) }),
+    el("span", { class: "when", text: ago(p.date) + who }),
     el("p", { class: "txt", text: p.text || "(no text)" }),
   ];
   if (p.images?.length) {
@@ -526,39 +530,46 @@ function renderFeeds(C, F) {
 /* ---- the one source a browser is allowed to refresh for itself ---- */
 async function refreshBluesky(C) {
   const cfg = C.social?.bluesky;
-  if (!cfg || cfg.enabled === false || !cfg.live || !cfg.handle) return;
+  if (!cfg || cfg.enabled === false || !cfg.live) return;
+  /* Same merge as the cached fetch: every handle in `handles`, newest first, one cap.
+     A partial failure keeps what DID load -- one dead account must not blank the other. */
+  const actors = (Array.isArray(cfg.handles) && cfg.handles.length) ? cfg.handles
+    : [cfg.handle].filter(Boolean);
+  if (!actors.length) return;
   const limit = Math.min(50, (C.feedLimits?.bluesky || 6) * 3);
   const base = "https://public.api.bsky.app/xrpc";
 
-  let feed;
-  try {
-    const r = await fetch(
-      `${base}/app.bsky.feed.getAuthorFeed?actor=${encodeURIComponent(cfg.handle)}` +
-      `&limit=${limit}&filter=posts_no_replies`
-    );
-    if (!r.ok) throw new Error(`HTTP ${r.status}`);
-    feed = await r.json();
-  } catch {
-    return;   // keep the cached list — see "the cache is the floor" above
-  }
-
-  const want = C.feedLimits?.bluesky || 6;
   const items = [];
-  for (const row of feed.feed || []) {
-    if (row.reason) continue;              // a repost carries someone else's name
-    const p = row.post;
-    if (!p?.record) continue;
-    const emb = p.embed || {};
-    items.push({
-      url: `https://bsky.app/profile/${cfg.handle}/post/${String(p.uri).split("/").pop()}`,
-      text: (p.record.text || "").replace(/\s+/g, " ").trim(),
-      date: p.record.createdAt || p.indexedAt,
-      likes: p.likeCount || 0, reposts: p.repostCount || 0, replies: p.replyCount || 0,
-      images: (emb.images || emb.media?.images || []).slice(0, 4)
-        .map((i) => ({ thumb: i.thumb, alt: i.alt || "" })),
-    });
-    if (items.length >= want) break;
+  for (const actor of actors) {
+    let feed;
+    try {
+      const r = await fetch(
+        `${base}/app.bsky.feed.getAuthorFeed?actor=${encodeURIComponent(actor)}` +
+        `&limit=${limit}&filter=posts_no_replies`
+      );
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      feed = await r.json();
+    } catch {
+      continue;   // keep whatever the other accounts gave — the cache is the floor
+    }
+    for (const row of feed.feed || []) {
+      if (row.reason) continue;            // a repost carries someone else's name
+      const p = row.post;
+      if (!p?.record) continue;
+      const emb = p.embed || {};
+      items.push({
+        url: `https://bsky.app/profile/${actor}/post/${String(p.uri).split("/").pop()}`,
+        by: actors.length > 1 ? actor : undefined,
+        text: (p.record.text || "").replace(/\s+/g, " ").trim(),
+        date: p.record.createdAt || p.indexedAt,
+        likes: p.likeCount || 0, reposts: p.repostCount || 0, replies: p.replyCount || 0,
+        images: (emb.images || emb.media?.images || []).slice(0, 4)
+          .map((i) => ({ thumb: i.thumb, alt: i.alt || "" })),
+      });
+    }
   }
+  items.sort((a, b) => new Date(b.date) - new Date(a.date));
+  items.length = Math.min(items.length, C.feedLimits?.bluesky || 6);
   if (!items.length) return;
 
   const list = $("#list-bluesky");

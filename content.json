@@ -247,6 +247,10 @@
       "enabled": true,
       "label": "BLUESKY",
       "handle": "el3v8or.bsky.social",
+      "handles": [
+        "el3v8or.bsky.social",
+        "whalehop.net"
+      ],
       "url": "https://bsky.app/profile/el3v8or.bsky.social",
       "blurb": "Devlog, screenshots and whatever the whale did today.",
       "live": true
