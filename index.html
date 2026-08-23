@@ -99,7 +99,7 @@
 <!-- ============================================================ TRAILER
      Between the summary and the features, and it earns a rail stop of its own:
      buildRail reads every main .sec with a data-band, so the climb runs
-     0m → 120m → 2,000m → 25,000m → 300,000m. site.js fills the whole thing from
+     0m → 120m → 1,100m → 2,000m → 25,000m → 300,000m. site.js fills the whole thing from
      content.trailer and REMOVES this section outright when it is switched off,
      so an empty key never leaves a headed section with a hole in it. -->
 <section id="trailer" class="sec" data-band="GULL LINE" data-alt="120">
@@ -109,6 +109,19 @@
       <div class="trailer-frame" id="trailer-frame"></div>
       <p id="trailer-link"></p>
     </div>
+  </div>
+</section>
+
+<!-- ============================================================ SOUNDINGS
+     Machine-written short notes, from soundings.json rather than content.json —
+     two owners, two files, so an automated writer has no way to reach Brenden's
+     copy. site.js removes this section when there is nothing to show. -->
+<section id="soundings" class="sec" data-band="SUNSET BAND" data-alt="1100">
+  <div class="wrap">
+    <p class="eyebrow" id="soundings-eyebrow">SOUNDINGS</p>
+    <h3 class="sec-h" id="soundings-heading"></h3>
+    <p class="sec-sub" id="soundings-sub"></p>
+    <ol class="sound-list" id="soundings-list"></ol>
   </div>
 </section>
 
@@ -129,20 +142,6 @@
     <div class="shots" id="shots"></div>
   </div>
 </section>
-
-<!-- ============================================================ SOUNDINGS
-     Machine-written short notes, from soundings.json rather than content.json —
-     two owners, two files, so an automated writer has no way to reach Brenden's
-     copy. site.js removes this section when there is nothing to show. -->
-<section id="soundings" class="sec" data-band="GALACTIC SHOAL" data-alt="150000">
-  <div class="wrap">
-    <p class="eyebrow" id="soundings-eyebrow">SOUNDINGS</p>
-    <h3 class="sec-h" id="soundings-heading"></h3>
-    <p class="sec-sub" id="soundings-sub"></p>
-    <ol class="sound-list" id="soundings-list"></ol>
-  </div>
-</section>
-
 <!-- ============================================================ FEEDS -->
 <section id="feeds" class="sec" data-band="THE ARCADE" data-alt="300000">
   <div class="wrap">
