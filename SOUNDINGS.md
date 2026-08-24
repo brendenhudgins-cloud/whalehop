@@ -41,7 +41,7 @@ interesting* but **would Brenden mind a stranger knowing it today.**
 - Art that has not shipped — anything in `IMPORTED ART SVGS/` or `NEW-*-prompts.md` that is
   not visibly in a screenshot on the site already.
 - Numbers that read as a roadmap: how many of a thing are planned, what is left to do, when.
-- Anything a competitor could take. Techniques are fine to be *coy* about, never explicit.
+- Anything a competitor could take. Say what a thing LOOKS like, never how it is done.
 
 When in doubt, write the whale fact instead. There is always another whale fact.
 
@@ -58,6 +58,14 @@ things a camera chasing a whale never has to." That is a real entry from 2026-08
 the reason this section was rewritten. A maxim handed to strangers reads as cocky however warm
 the subject is. Say the thing plainly and let it be ordinary.
 
+- **Not coy.** Dropped as a voice trait on 2026-08-24 (Brenden: "we dont need to be coy"). It
+  was doing two jobs and only one of them was voice. As TONE, coy is teasing — I know something
+  you do not — which is the smirk wearing a softer coat, and the archive is thick with it:
+  "There is no story here and we will not be taking questions." As a PRIVACY device it was the
+  trick of saying that something changed without saying what. **That trick is retired too.** If
+  a thing can be talked about, say what it is in plain words. If it cannot — unreleased, or
+  behind **The one rule that matters** — then do not write a vague version of it either: a hint
+  still announces there is something to hint at. Write a sea one — there is always another.
 - **Never take your words from git.** Read the repo to find out WHAT happened, then look away
   from it and write the line from memory. Do not reuse a commit subject's phrasing, and do not
   reuse its RHYTHM either — the "X is not Y, it is Z" shape, the bare declarative maxim, the
@@ -130,9 +138,9 @@ Each run:
 
 1. Read the game repo — `git log` since the last sounding, and the working tree, so
    uncommitted work counts. `git -C "<game repo>" log --oneline --since="<last>"`.
-2. Decide whether anything is worth a coy line. **If nothing is, write a sea one.** A quiet day
-   is not a reason to invent activity, and never a reason to describe work in more detail to
-   fill the space.
+2. Decide whether anything can be said plainly, in public, in one line. **If nothing can,
+   write a sea one.** A quiet day is not a reason to invent activity, and never a reason to
+   describe work in more detail to fill the space.
 3. Draft it, then **read the draft next to the commit log you just read.** If a phrase or a
    sentence-shape came from there, rewrite it. Then read it out loud: if it sounds like a
    person mentioning something, post it; if it sounds like a line from a talk, cut the clever
