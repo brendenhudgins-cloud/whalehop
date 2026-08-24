@@ -10,7 +10,12 @@ are reporting what you felt down there, not publishing the survey.
 it — since 2026-08-23. That changes nothing about the bar: the site was always public, so a
 sounding was always a claim in front of strangers. It does mean a sounding is now a POST as
 well as a log line — same words in a faster room — and the posting tool, not the writer,
-decides tags (gamedev tags on `deep`, none on `wild`).
+decides tags: gamedev tags on `deep`, **`#whalefacts` on `wild`** (Brenden, 2026-08-24). The
+tag is chosen from `kind` alone, never by reading the text, so a `wild` entry about an octopus
+is tagged too — the alternative is sniffing for the word "whale", which would drop the tag on
+every entry that says bowhead, orca or narwhal instead. **Do not type a hashtag into the
+`text` field**; it would be inert decoration there, because the tool attaches tags as real
+facets and only for the block it appends itself.
 
 ---
 
@@ -52,6 +57,15 @@ When in doubt, write the whale fact instead. There is always another whale fact.
   rolling its eyes at its own game. Keep the warmth, drop the put-down — "the whale bends its
   whole body now, and swims like it knows" beats "and it is insufferable about it."
   Affection for the thing, always; attitude at it, never.
+- **Less sassy than you think — a third calibration, 2026-08-24, this time on the VIDEO
+  posts.** The snark rule above stopped the whale being mocked; this one is about the
+  NARRATOR. The tell is a short dry clause bolted onto the end of an otherwise plain
+  paragraph, landing as a punchline: "which nobody asked them to do", "the colour is a
+  separate question", "for the chance to put all of it on one table". Individually each
+  reads as wit. At two posts a day they compose into a voice that is pleased with itself,
+  which is the same failure as the eye-roll wearing a better coat. **Cut the last sentence
+  if its only job is to be clever.** End on the observation, or on something the clip is
+  about to show. Dry and specific is the voice; dry and *smirking* is not.
 - **Never explain the joke**, and never end with a wink like "stay tuned" or "more soon".
 - No exclamation-mark pile-ups, no emoji, no hype. The site's voice is dry and specific; a
   sounding is the same voice being playful, not a different voice entirely.
