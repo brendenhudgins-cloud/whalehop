@@ -130,7 +130,8 @@ function renderNotice(C) {
 /* =========================================================== SOUNDINGS
 
    Short notes, a couple a day, half about the game and half about the actual
-   ocean. Written by a scheduled run; the rules it follows are in SOUNDINGS.md.
+   ocean. Written by a scheduled run; the rules it follows are in SOUNDINGS.md in the GAME
+   repo -- private since 2026-08-27, because this repo deploys every file in it.
 
    THREE FILES NOW, AND THE THIRD IS FOR THE SAME REASON AS THE SECOND.
    content.json is Brenden's and is hand-edited. feeds.json is written by
