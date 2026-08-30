@@ -10,8 +10,14 @@
     "",
     "The rules the writer follows are in SOUNDINGS.md. Read that before adding anything."
   ],
-  "generated": "2026-08-29T16:00:37.000Z",
+  "generated": "2026-08-30T13:38:45.000Z",
   "entries": [
+    {
+      "date": "2026-08-30",
+      "kind": "deep",
+      "text": "A big splash throws up more droplets than the game can afford, so there's a hard cap on live particles. I was worried it was deleting ones you'd actually see, and when I sat still and tested it, it was. Flying properly you've already left them behind.",
+      "src": "q4"
+    },
     {
       "date": "2026-08-29",
       "kind": "wild",
