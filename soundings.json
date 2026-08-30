@@ -10,8 +10,14 @@
     "",
     "The rules the writer follows are in SOUNDINGS.md. Read that before adding anything."
   ],
-  "generated": "2026-08-30T15:13:23.000Z",
+  "generated": "2026-08-30T22:28:42.000Z",
   "entries": [
+    {
+      "date": "2026-08-30",
+      "kind": "deep",
+      "text": "Controller support means polling: the browser never tells you a stick moved, so you ask it every frame, forever. The harder problem is knowing what someone's actually holding — pick up a pad and the mouse pointer clears off, then comes back when you touch the mouse.",
+      "src": "q5"
+    },
     {
       "date": "2026-08-30",
       "kind": "wild",
