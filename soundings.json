@@ -10,8 +10,14 @@
     "",
     "The rules the writer follows are in SOUNDINGS.md. Read that before adding anything."
   ],
-  "generated": "2026-09-01T16:42:40.000Z",
+  "generated": "2026-09-01T22:22:18.000Z",
   "entries": [
+    {
+      "date": "2026-09-01",
+      "kind": "deep",
+      "text": "Menus use spatial navigation: press right and focus goes to whatever's physically to the right. Turned up a good bug — maxed upgrade cards were marked disabled, which pulled them out of the focus list, so the card you'd finished was the one you couldn't select or refund.",
+      "src": "q6"
+    },
     {
       "date": "2026-09-01",
       "kind": "wild",
