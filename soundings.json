@@ -10,8 +10,14 @@
     "",
     "The rules the writer follows are in SOUNDINGS.md. Read that before adding anything."
   ],
-  "generated": "2026-09-20T15:04:22.277Z",
+  "generated": "2026-09-21T15:04:35.614Z",
   "entries": [
+    {
+      "date": "2026-09-21",
+      "kind": "deep",
+      "text": "You fly a whale in Whale Hop, and one of the cards you can buy promises to cut air drag — the air pushing back on the whale — by a third. Whenever you pushed forward, it added extra drag instead, so the whale flew slower. I fixed it so it always cuts a third.",
+      "src": "q18"
+    },
     {
       "date": "2026-09-20",
       "kind": "wild",
