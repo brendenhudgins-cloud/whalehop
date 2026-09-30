@@ -10,8 +10,14 @@
     "",
     "The rules the writer follows are in SOUNDINGS.md. Read that before adding anything."
   ],
-  "generated": "2026-09-29T15:13:00.242Z",
+  "generated": "2026-09-30T15:13:12.229Z",
   "entries": [
+    {
+      "date": "2026-09-30",
+      "kind": "deep",
+      "text": "The missions list in Whale Hop is long, and pressing down walked the cursor off screen. Every row had the same name in the focus list — what a controller steps through — so the game thought the cursor hadn't moved and the view never followed. Each row has its own name.",
+      "src": "q23"
+    },
     {
       "date": "2026-09-29",
       "kind": "wild",
