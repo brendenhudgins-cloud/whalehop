@@ -10,8 +10,14 @@
     "",
     "The rules the writer follows are in SOUNDINGS.md. Read that before adding anything."
   ],
-  "generated": "2026-10-02T15:12:27.553Z",
+  "generated": "2026-10-03T15:12:37.244Z",
   "entries": [
+    {
+      "date": "2026-10-03",
+      "kind": "deep",
+      "text": "In Whale Hop your whale leaps out of the sea and does tricks, and your score for the jump climbs with every one. Keep going and it bursts into flame. Dive back in nose-first and you keep it. Land flat on your belly and it's gone.",
+      "src": "147-string-fire"
+    },
     {
       "date": "2026-10-02",
       "kind": "sea",
